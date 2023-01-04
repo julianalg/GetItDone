@@ -1,2 +1,2 @@
 # GetItDone
-google chrome extension that creates a gamified focus mode for students to prevent procrastion and distractions
+google chrome extension that creates a gamified focus mode and to-do list for students to prevent procrastion and distractions.
