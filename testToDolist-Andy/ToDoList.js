@@ -2,13 +2,15 @@ console.log("Javascript started");
 
 const tasks = new Array();
 
-console.log(`tasks: ${tasks}`);
+console.log(`Tasks: ${tasks}`);
 
 function addItem() {
 
     console.log("Add button has been pressed");
 
     const task  = document.createElement("li");
+    
+    const taskNumber = tasks.length;
 
     console.log("Task element created");
 
@@ -25,6 +27,12 @@ function addItem() {
     tasks.push(task);
 
     console.log("Task added to list");
+
+    chrome.storage.local.set({taskNumber: task}).then(() => {
+
+        console.log(`Task should be retrieved here via tasknumber: ${chrome.storage.local.get(taskNumber)}`)
+
+    });
 
     document.querySelector("ul").append(...tasks);
 
