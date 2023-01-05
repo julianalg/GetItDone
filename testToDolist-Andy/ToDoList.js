@@ -30,11 +30,7 @@ function addItem() {
 
     console.log(`Tasks: ${tasks}`)
 
-    chrome.storage.local.set({taskNumber: task}).then(() => {
-
-        console.log(`Task should be retrieved here via tasknumber: ${chrome.storage.local.get(taskNumber)}`)
-
-    });
+    chrome.storage.local.set({taskNumber: task});
 
     document.querySelector("ul").append(...tasks);
 
@@ -46,7 +42,17 @@ function removeItem() {
 
     console.log("Remove button has been pressed");
 
-    console.log(`List of Tasks: ${tasks}`)
+    console.log(`List of Tasks: ${tasks}`);
+
+}
+
+function testStorage() {
+
+    const element = chrome.storage.local.get("1");
+
+    console.log(element);
+
+    console.log(element.innerText);
 
 }
 
@@ -54,7 +60,11 @@ const addTaskButton = document.getElementById("addTask");
 
 const removeTaskButton = document.getElementById("removeTask");
 
+const storageTestButton = document.getElementById("testStorage");
+
 addTaskButton.addEventListener("click", addItem);
 
 removeTaskButton.addEventListener("click", removeItem);
+
+storageTestButton.addEventListener("click", testStorage);
 
