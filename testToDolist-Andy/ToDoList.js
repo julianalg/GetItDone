@@ -1,16 +1,22 @@
 console.log("Javascript started");
+
 const tasks = new Array();
+
 console.log(`tasks: ${tasks}`);
 
 function addItem() {
 
-    console.log("Button has been pressed");
+    console.log("Add button has been pressed");
 
     const task  = document.createElement("li");
 
     console.log("Task element created");
 
     task.innerText = document.getElementById("taskContent").value;
+
+    task.id = task.innerText;
+
+    console.log(`Task ID: ${task.id}`)
 
     console.log(`Task text: ${task.innerText}`)
 
@@ -26,7 +32,19 @@ function addItem() {
 
 } 
 
-const button = document.getElementById("addTask");
+function removeItem() {
 
-button.addEventListener("click", addItem);
+    console.log("Remove button has been pressed");
+
+    console.log(`List of Tasks: ${tasks}`)
+
+}
+
+const addTaskButton = document.getElementById("addTask");
+
+const removeTaskButton = document.getElementById("removeTask");
+
+addTaskButton.addEventListener("click", addItem);
+
+removeTaskButton.addEventListener("click", removeItem);
 
