@@ -28,6 +28,8 @@ function addItem() {
 
     console.log("Task added to list");
 
+    console.log(`Tasks: ${tasks}`)
+
     chrome.storage.local.set({taskNumber: task}).then(() => {
 
         console.log(`Task should be retrieved here via tasknumber: ${chrome.storage.local.get(taskNumber)}`)
