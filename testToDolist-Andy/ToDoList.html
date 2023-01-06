@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" /> 
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./ToDoList.css" />    
-        <script src="./ToDoList.js" type="module"></script>
-    </head>
-    <body>
-
-        <h1>To-Do List</h1>
-
+<head>
+    <meta charset="UTF-8" /> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./ToDoList.css" />    
+    <script src="./ToDoList.js" type="module"></script>
+</head>
+<body>
+    
+    <h1>To-Do List</h1>
+    
+    <form id="formInput" onsubmit="return false">
         <label for="taskContent">Task Name</label>
         <input type="text" placeholder="Do groceries" id="taskContent">
-        <button id="addTask">Add Task</button>
+        <button id="addTask" >Add Task</button>
         <button id="removeTask">Remove Task</button>
         <button id="testStorage">Test Storage</button>
-        
-        <ul></ul>
-        
-    </body>
+    </form>
+    
+    
+    
+    <ul id="tasklist"></ul>
+    
+</body>
 </html>

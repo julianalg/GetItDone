@@ -1,0 +1,19 @@
+{
+  "name": "getitdone",
+  "version": "1.0.0",
+  "description": "google chrome extension that creates a gamified focus mode and to-do list for students to prevent procrastion and distractions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julianagar/GetItDone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/julianagar/GetItDone/issues"
+  },
+  "homepage": "https://github.com/julianagar/GetItDone#readme"
+}
