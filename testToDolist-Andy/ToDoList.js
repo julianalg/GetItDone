@@ -1,100 +1,122 @@
 console.log("Javascript started");
 
-let tasks = [];
+let taskList = [];
 
-if(chrome.storage.sync.get("taskList").then((result) => {
+chrome.storage.local.get(["taskList"], function(result) {
 
-    if(typeof(result) == Array) {
+    if (result.taskList) {
 
-        return true;
-
-    } else {
-
-        return false;
+        taskList = result.taskList;
 
     }
 
-})) {
+    displayTaskList();
 
-    chrome.storage.sync.get("taskList").then((result) => {
+});
 
-        tasks = result;
+chrome.storage.onChanged.addListener(function(changes) {
+    
+    if ('taskList' in changes) {
+      
+        taskList = changes.taskList.newValue;
+      
+      console.log('taskList list reloaded from storage');
+      
+      displayTaskList();
+    
+    }
+});
 
-    });
+//Above code to load taskList from storage if possible.
 
-};
-
-/* The ugly code above should check if taskList is in the database.
-If it is in the database, it should set tasks to what taskList is in the database.
-AKA tasks and the value stored at the key taskList in chrome.storage.sync should be the same.
-However, after the code above runs, tasks is undefined. As in typeof(tasks) returns undefined.
-This means when we later try to push the task we create to it, it throws an error
-*/
-
-console.log(`Tasks: ${tasks}`);
+console.log(`Tasks: ${taskList}`);
 
 function displayTaskList() {
     
-    chrome.storage.sync.get("taskList").then((result) => {
+    const taskListElement = document.getElementById("taskList");
 
-        let lengthOfTasks = result.length
+    taskListElement.innerHTML = "";
 
-        for(let i = 0; i < lengthOfTasks; i++) {
-            
-            document.querySelector("ul").append(result[i]);
+    for(let i = 0; i < taskList.length; i++) {
+
+        const task = taskList[i];
+
+        const taskElement = document.createElement("li");
+
+        taskElement.classList.add("Incomplete");
+
+        if (task.completed == true) {
+
+            taskElement.classList.add("Completed");
+
+        }
+
+        taskElement.innerText = task.text;
+
+        taskListElement.appendChild(taskElement);
+
+    }
+
+}
+
+function storeList() {
+
+    chrome.storage.sync.set({"taskList": taskList}).then((value) => {
         
-        };
-
+        console.log("taskList is stored as: " + value);
+     
     });
 
 }
 
-/* The above function, for some godforsaken reason, is not doing anything.
-Further, the variable, "tasks", no matter how many items I add, always reads [obejct Object].
-What is even going on?(I commented out the tasks.push and this is what I get ;-;)
-*/
+function addTask(text) {
 
-function addItem() {
+    taskList.push({
 
-    const task  = document.createElement("li");
+        text: text,
 
-    task.innerText = document.getElementById("taskContent").value;
+        completed: false
 
-    task.id = task.innerText;
+    });
 
-    console.log(`Task text/ID: ${task.innerText}`)
-
-    //tasks.push(task);
-
-    console.log(`Tasks: ${tasks}`);
- 
-    displayTaskList();
+    storeList();
 
 } 
 
-function removeItem() {
+const addTaskForm = document.getElementById("addTaskForm");
 
-    console.log("Remove button has been pressed");
+addTaskForm.addEventListener("submit", function(event) {
 
-    console.log(`List of Tasks: ${tasks}`);
+    event.preventDefault() //so we can do things with the info in the form
 
-}
+    const taskContent = document.getElementById("taskContent");
 
-function testStorage() {
+    const taskText = taskContent.value.trim(); //Remove whitespace
 
-    console.log("Nothing to test");
+    if (taskText !== "") {
 
-};
+        addTask(taskContent.value);
+        
+        taskContent.value = '';
+        
+        displayTaskList();
+    }
 
-const addTaskButton = document.getElementById("addTask");
+});
 
-const removeTaskButton = document.getElementById("removeTask");
+chrome.storage.local.get(["taskList"], function(result) {
+    
+    if (result.taskList) {
+        
+        taskList = result.taskList;
+    } 
+    
+    else {
+        
+        chrome.storage.local.set({"taskList": []});
+    
+    }
+    
+    displayTaskList();
 
-const storageTestButton = document.getElementById("testStorage");
-
-addTaskButton.addEventListener("click", addItem);
-
-removeTaskButton.addEventListener("click", removeItem);
-
-storageTestButton.addEventListener("click", testStorage);
-
+});

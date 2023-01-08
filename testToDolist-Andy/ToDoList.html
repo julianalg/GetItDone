@@ -5,19 +5,19 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="./ToDoList.css" />    
-        <script src="./ToDoList.js" type="module"></script>
     </head>
     <body>
 
         <h1>To-Do List</h1>
+        
+        <form id="addTaskForm">
+            <input type="text" id="taskContent" placeholder="Do groceries">
+            <button type="submit" id="addTask">Add Task</button>
+        </form>
+        
+        <div id="taskList"></div>
+        
+        <script src="./ToDoList.js" type="module"></script>
 
-        <label for="taskContent">Task Name</label>
-        <input type="text" placeholder="Do groceries" id="taskContent">
-        <button id="addTask">Add Task</button>
-        <button id="removeTask">Remove Task</button>
-        <button id="testStorage">Test Storage</button>
-        
-        <ul></ul>
-        
     </body>
 </html>
