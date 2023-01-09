@@ -2,34 +2,24 @@ console.log("Javascript started");
 
 let taskList = [];
 
-chrome.storage.local.get(["taskList"], function(result) {
-
+chrome.storage.sync.get(["taskList"], function(result) {
+    
     if (result.taskList) {
-
+        
         taskList = result.taskList;
-
+    } 
+    
+    else {
+        
+        chrome.storage.sync.set({"taskList": []});
+    
     }
-
+    
     displayTaskList();
 
 });
 
-chrome.storage.onChanged.addListener(function(changes) {
-    
-    if ('taskList' in changes) {
-      
-        taskList = changes.taskList.newValue;
-      
-      console.log('taskList list reloaded from storage');
-      
-      displayTaskList();
-    
-    }
-});
-
 //Above code to load taskList from storage if possible.
-
-console.log(`Tasks: ${taskList}`);
 
 function displayTaskList() {
     
@@ -71,6 +61,8 @@ function storeList() {
 
 function addTask(text) {
 
+    console.log("Task being added");
+
     taskList.push({
 
         text: text,
@@ -101,22 +93,5 @@ addTaskForm.addEventListener("submit", function(event) {
         
         displayTaskList();
     }
-
-});
-
-chrome.storage.local.get(["taskList"], function(result) {
-    
-    if (result.taskList) {
-        
-        taskList = result.taskList;
-    } 
-    
-    else {
-        
-        chrome.storage.local.set({"taskList": []});
-    
-    }
-    
-    displayTaskList();
 
 });
