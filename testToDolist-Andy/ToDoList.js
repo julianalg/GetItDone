@@ -25,7 +25,7 @@ function displayTaskList() {
     
     const taskListElement = document.getElementById("taskList");
 
-    taskListElement.innerHTML = "";
+    taskListElement.innerHTML = ""; //clear rather than append because append logic gets messy fast
 
     for(let i = 0; i < taskList.length; i++) {
 
@@ -33,7 +33,7 @@ function displayTaskList() {
 
         const taskElement = document.createElement("li");
 
-        taskElement.classList.add("Incomplete");
+        taskElement.classList.add("Incomplete"); //Marks as complete or incomplete for later styling
 
         if (task.completed == true) {
 
@@ -75,11 +75,11 @@ function addTask(text) {
 
 } 
 
-const addTaskForm = document.getElementById("addTaskForm");
+const addTaskForm = document.getElementById("addTaskForm"); 
 
 addTaskForm.addEventListener("submit", function(event) {
 
-    event.preventDefault() //so we can do things with the info in the form
+    event.preventDefault() //So we can do things with the info in the form
 
     const taskContent = document.getElementById("taskContent");
 
