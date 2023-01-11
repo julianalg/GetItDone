@@ -51,11 +51,17 @@ function displayTaskList() {
 
 function storeList() {
 
-    chrome.storage.sync.set({"taskList": taskList}).then((value) => {
-        
-        console.log("taskList is stored as: " + value);
-     
-    });
+    chrome.storage.sync.set({"taskList": taskList});
+
+    const result = [];
+
+    for (let i = 0; i < taskList.length; i++) {
+
+        result.push(`{Text: ${taskList[i].text}, Completed: ${taskList[i].completed}}`);
+
+        console.log(`taskList has been stored as: ${result}`);
+
+    }
 
 }
 
