@@ -51,7 +51,9 @@ function displayTaskList() {
 
         }
 
-        taskElement.innerText = task.text;
+        const taskTextElement = document.createElement("span");
+
+        taskTextElement.textContent = task.text;
 
         const removeButton = document.createElement("button");
 
@@ -79,9 +81,11 @@ function displayTaskList() {
         
         });
 
-        taskElement.appendChild(removeButton);
-
         taskElement.appendChild(checkbox);
+
+        taskElement.appendChild(taskTextElement);
+
+        taskElement.appendChild(removeButton);
 
         if (taskElement.className == "Completed") {
 
