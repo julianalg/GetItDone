@@ -1,0 +1,14 @@
+html {
+    height: 200px;  
+    width: 200px;     
+    
+}
+/* expands chrome extension window */
+
+body {
+    text-align: center;
+}
+
+.addtask {
+    margin: 5px;
+}
