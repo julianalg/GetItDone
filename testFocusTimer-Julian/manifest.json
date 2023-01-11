@@ -1,9 +1,9 @@
- {
+{
     "manifest_version": 3,
-    "name": "Test To-Do List",
+    "name": "Test Focus Mode ",
     "version": "1.0",
     "action": {
-        "default_popup": "ToDoList.html"
+        "default_popup": "index.html"
     },
     "icons": {
         "16": "images/icon-16.png",
