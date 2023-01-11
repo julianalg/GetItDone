@@ -4,15 +4,19 @@
         <meta charset="UTF-8" /> 
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./ToDoList.css" />    
+        
+        <!--- bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="ToDoList.css" />    
     </head>
     <body>
 
-        <h1>To-Do List</h1>
+        <h2>To-Do List</h2>
         
         <form id="addTaskForm">
             <input type="text" id="taskContent" placeholder="Do groceries">
-            <button type="submit" id="addTask">Add Task</button>
+            <button type="submit" class="btn btn-outline-primary addtask" id="addTask">Add Task</button>
         </form>
         
         <div id="taskList"></div>
