@@ -154,7 +154,7 @@ const addTaskForm = document.getElementById("addTaskForm");
 
 addTaskForm.addEventListener("submit", (event) => {
 
-    event.preventDefault() //So we can do things with the info in the form
+    event.preventDefault(); //So we can do things with the info in the form
 
     const taskContent = document.getElementById("taskContent");
 
@@ -170,3 +170,71 @@ addTaskForm.addEventListener("submit", (event) => {
     }
 
 });
+
+var startingMinutes; //If we declar startingMinutes, startingSeconds, or time right now, they will all be 0 because the document just loaded.
+var startingSeconds;
+let time;
+var timer;
+
+const countdownEl = document.getElementById('countdown');
+const startButton = document.getElementById('Start');
+const stopButton = document.getElementById("Stop");
+const resetButton = document.getElementById("Reset");
+
+startButton.addEventListener("click", () => {
+
+    console.log("Starting countdown...");
+
+    startingMinutes = Number(document.getElementById("StartingMinutes").value);
+
+    startingSeconds = Number(document.getElementById("StartingSeconds").value);
+
+    time = startingMinutes * 60 + startingSeconds;
+
+
+    timer = setInterval(updateCountdown, 1000);
+
+});
+
+stopButton.addEventListener("click", stopCountdown);
+
+resetButton.addEventListener("click", resetCountdown);
+
+function updateCountdown() {
+    
+    console.log("Total Time(In seconds): " + time);
+
+    const minutes = Math.floor(time / 60);
+
+    console.log("Minutes: " + minutes);
+
+    let seconds = time % 60;
+
+    console.log("Seconds: " + seconds);
+
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    countdownEl.innerHTML = `${minutes}: ${seconds}`;
+
+    time--;
+}
+
+function stopCountdown() {
+
+    console.log("Stopping countdown...");
+
+    clearInterval(timer);
+
+};
+
+function resetCountdown() {
+
+    console.log("Resetting countdown...");
+
+    stopCountdown();
+
+    time = startingMinutes * 60 + startingSeconds;
+
+    countdownEl.innerText = `${startingMinutes}: ${startingSeconds}`;
+
+}
