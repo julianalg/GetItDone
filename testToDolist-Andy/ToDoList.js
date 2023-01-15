@@ -185,6 +185,7 @@ startButton.addEventListener("click", () => {
 
     console.log("Starting countdown...");
 
+    //If user does not enter a number, it will default to 25
     startingMinutes = Number(document.getElementById("StartingMinutes").value) == 0 ? startingMinutes = 25 : startingMinutes;
 
     startingSeconds = Number(document.getElementById("StartingSeconds").value);
