@@ -8,7 +8,7 @@
         <!--- bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="ToDoList.css" />    
+        <link rel="stylesheet" href="ToDoListPopup.css" />    
     </head>
     <body>
 
@@ -23,7 +23,7 @@
             <div class="timer">
                 <div class="timer__controls">
                     <p><input type="number" id="StartingMinutes" placeholder="25">: <input type="number" id="StartingSeconds" placholder="00" max="60"></p>
-                    <button class="timer__button btn btn-success" id="Start">Start</button>
+                    <button type="submit" class="timer__button btn btn-success" id="Start">Start</button>
                     <button class="timer__button btn btn-danger" id="Stop">Stop</button>
                     <button class="timer__button btn btn-secondary" id="Reset">Reset</button>
                 </div>
@@ -44,6 +44,6 @@
     </body>
 
     <!--- Put script tag at the bottom, or things break(its something to do with the order stuff is executed)-->
-    <script src="./ToDoList.js"></script>
+    <script src="./ToDoListPopup.js"></script>
 
 </html>

@@ -3,7 +3,7 @@
     "name": "Test To-Do List",
     "version": "1.0",
     "action": {
-        "default_popup": "ToDoList.html"
+        "default_popup": "ToDoListPopup.html"
     },
     "icons": {
         "16": "images/icon-16.png",
@@ -12,7 +12,11 @@
         "128": "images/icon-128.png"
     },
 
-    "permissions": [
-        "storage"
-    ]
+    "permissions": ["storage", "alarms", "notifications"],
+
+    "background": {
+
+        "service_worker": "timerBackground.js"
+
+    }
 }

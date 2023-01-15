@@ -171,17 +171,16 @@ addTaskForm.addEventListener("submit", (event) => {
 
 });
 
-var startingMinutes; //If we declar startingMinutes, startingSeconds, or time right now, they will all be 0 because the document just loaded.
+var startingMinutes;
 var startingSeconds;
-let time;
-var timer;
+var time;
 
 const countdownEl = document.getElementById('countdown');
-const startButton = document.getElementById('Start');
+const startButton = document.getElementById("startCountdownForm");
 const stopButton = document.getElementById("Stop");
 const resetButton = document.getElementById("Reset");
 
-startButton.addEventListener("click", () => {
+/*startButton.addEventListener("click", () => {
 
     console.log("Starting countdown...");
 
@@ -208,7 +207,7 @@ function updateCountdown() {
 
     seconds = seconds < 10 ? '0' + seconds : seconds;
 
-    countdownEl.innerHTML = `${minutes}: ${seconds}`;
+    countdownEl.innerText = `${minutes}: ${seconds}`;
 
     time--;
 }
@@ -227,8 +226,74 @@ function resetCountdown() {
 
     stopCountdown();
 
-    time = startingMinutes * 60 + startingSeconds;
-
     countdownEl.innerText = `${startingMinutes}: ${startingSeconds}`;
 
+} */
+
+function displayCountdown() {
+
+    console.log("Displaying countdown...")
+
+    chrome.storage.local.get(["timeLeft"], (result) => {
+
+        const time = result.timeLeft ?? 25*60; //If it returns null, time is set to default of 25 minutes
+
+        let minutes = Math.floor(time / 60);
+
+        let seconds = time % 60;
+
+        countdownEl.innerText = `${minutes}: ${seconds}`;
+
+      });
+
 }
+
+displayCountdown();
+setInterval(displayCountdown, 1000);
+
+startButton.addEventListener("click", () => {
+
+    console.log("Starting countdown...");
+
+    //If user does not enter a number, it will default to 25
+    startingMinutes = Number(document.getElementById("StartingMinutes").value) == 0 ? startingMinutes = 25 : startingMinutes;
+
+    startingSeconds = Number(document.getElementById("StartingSeconds").value);
+
+    time = startingMinutes * 60 + startingSeconds;
+
+    chrome.storage.local.set({
+
+        timeLeft: time,
+
+        isRunning: true
+
+    });
+
+}); 
+
+stopButton.addEventListener("click", () => {
+
+    console.log("Stopping countdown...");
+
+    chrome.storage.local.set({
+
+      isRunning: false,
+
+    });
+  
+});
+  
+resetButton.addEventListener("click", () => {
+
+    console.log("Resetting countdown...");
+
+    chrome.storage.local.set({
+
+      timer: startingMinutes * 60 + startingSeconds,
+
+      isRunning: false
+
+    });
+
+});
