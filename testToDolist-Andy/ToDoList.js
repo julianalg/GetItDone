@@ -185,12 +185,11 @@ startButton.addEventListener("click", () => {
 
     console.log("Starting countdown...");
 
-    startingMinutes = Number(document.getElementById("StartingMinutes").value);
+    startingMinutes = Number(document.getElementById("StartingMinutes").value) == 0 ? startingMinutes = 25 : startingMinutes;
 
     startingSeconds = Number(document.getElementById("StartingSeconds").value);
 
     time = startingMinutes * 60 + startingSeconds;
-
 
     timer = setInterval(updateCountdown, 1000);
 
@@ -202,15 +201,9 @@ resetButton.addEventListener("click", resetCountdown);
 
 function updateCountdown() {
     
-    console.log("Total Time(In seconds): " + time);
-
     const minutes = Math.floor(time / 60);
 
-    console.log("Minutes: " + minutes);
-
     let seconds = time % 60;
-
-    console.log("Seconds: " + seconds);
 
     seconds = seconds < 10 ? '0' + seconds : seconds;
 
