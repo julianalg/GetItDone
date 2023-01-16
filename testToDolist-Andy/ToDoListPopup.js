@@ -175,21 +175,36 @@ var startingMinutes;
 var startingSeconds;
 var time;
 
+/* var startingMinutes; //If we declare startingMinutes, startingSeconds, or time right now, they will all be 0 because the document just loaded.
+var startingSeconds;
+let time;
+var timer;
+
 const countdownEl = document.getElementById('countdown');
-const startButton = document.getElementById("startCountdownForm");
+const startButton = document.getElementById('Start');
 const stopButton = document.getElementById("Stop");
 const resetButton = document.getElementById("Reset");
 
-/*startButton.addEventListener("click", () => {
+startButton.addEventListener("click", () => {
 
     console.log("Starting countdown...");
 
     //If user does not enter a number, it will default to 25
-    startingMinutes = Number(document.getElementById("StartingMinutes").value) == 0 ? startingMinutes = 25 : startingMinutes;
+    startingMinutes = Number(document.getElementById("StartingMinutes").value);
 
     startingSeconds = Number(document.getElementById("StartingSeconds").value);
 
     time = startingMinutes * 60 + startingSeconds;
+
+    if (time <= 0) {
+
+        startingMinutes = 25;
+
+        startingSeconds = 0;
+
+        time = startingMinutes * 60 + startingSeconds;
+
+    }
 
     timer = setInterval(updateCountdown, 1000);
 
@@ -207,7 +222,7 @@ function updateCountdown() {
 
     seconds = seconds < 10 ? '0' + seconds : seconds;
 
-    countdownEl.innerText = `${minutes}: ${seconds}`;
+    countdownEl.innerHTML = `${minutes}: ${seconds}`;
 
     time--;
 }
@@ -226,9 +241,16 @@ function resetCountdown() {
 
     stopCountdown();
 
+    time = startingMinutes * 60 + startingSeconds;
+
     countdownEl.innerText = `${startingMinutes}: ${startingSeconds}`;
 
 } */
+
+const countdownEl = document.getElementById('countdown');
+const startButton = document.getElementById('Start');
+const stopButton = document.getElementById("Stop");
+const resetButton = document.getElementById("Reset");
 
 function displayCountdown() {
 
@@ -236,11 +258,27 @@ function displayCountdown() {
 
     chrome.storage.local.get(["timeLeft"], (result) => {
 
-        const time = result.timeLeft ?? 25*60; //If it returns null, time is set to default of 25 minutes
+        const time = result.timeLeft;
 
         let minutes = Math.floor(time / 60);
 
         let seconds = time % 60;
+
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        // Ugly conditionals to make sure it doesn't display weird things.
+
+        if (minutes == -1) {
+
+            minutes = 0;
+
+        }
+
+        if (seconds == "0-1") {
+
+            seconds = "00";
+
+        }
 
         countdownEl.innerText = `${minutes}: ${seconds}`;
 
@@ -249,18 +287,29 @@ function displayCountdown() {
 }
 
 displayCountdown();
+
 setInterval(displayCountdown, 1000);
 
 startButton.addEventListener("click", () => {
 
     console.log("Starting countdown...");
 
-    //If user does not enter a number, it will default to 25
-    startingMinutes = Number(document.getElementById("StartingMinutes").value) == 0 ? startingMinutes = 25 : startingMinutes;
+    //If user does not enter a number, it will default to 25 minutes
+    startingMinutes = Number(document.getElementById("StartingMinutes").value);
 
     startingSeconds = Number(document.getElementById("StartingSeconds").value);
 
     time = startingMinutes * 60 + startingSeconds;
+
+    if (time <= 0) {
+
+        startingMinutes = 25;
+
+        startingSeconds = 0;
+
+        time = startingMinutes * 60 + startingSeconds;
+
+    }
 
     chrome.storage.local.set({
 
@@ -290,10 +339,10 @@ resetButton.addEventListener("click", () => {
 
     chrome.storage.local.set({
 
-      timer: startingMinutes * 60 + startingSeconds,
+      timeLeft: -1,
 
       isRunning: false
 
     });
 
-});
+}); 
