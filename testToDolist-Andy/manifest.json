@@ -12,7 +12,10 @@
         "128": "images/icon-128.png"
     },
 
-    "permissions": ["storage", "alarms", "notifications"],
+    "permissions": ["storage", "alarms", "notifications", "webRequestBlocking",
+    "webRequest", "activeTab", "tabs", "http://*/*", "https://*/*"],
+
+    "options_page": "timerOptions.html",
 
     "background": {
 
