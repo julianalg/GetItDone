@@ -12,7 +12,7 @@ chrome.alarms.onAlarm.addListener(() => {
 
         const isRunning = result.isRunning ?? true; // If isRunning doesn't exist/returns null, set to false 
 
-        //If the time hits 0, reset countdown by setting to null and stop running
+        //If the time hits 0, reset countdown by setting to null, stop running, and send a notification.
 
         if (result.timeLeft === 0) {
 
@@ -22,6 +22,14 @@ chrome.alarms.onAlarm.addListener(() => {
 
                 isRunning: false
 
+            });
+
+            chrome.notifications.create('test', {
+                type: 'basic',
+                iconUrl: './images/icon-128.png',
+                title: 'TImer Complete',
+                message: 'You are awesome!',
+                priority: 2
             });
 
             return;
