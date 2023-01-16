@@ -27,8 +27,8 @@ chrome.alarms.onAlarm.addListener(() => {
             chrome.notifications.create('test', {
                 type: 'basic',
                 iconUrl: './images/icon-128.png',
-                title: 'TImer Complete',
-                message: 'You are awesome!',
+                title: 'Focus Mode Complete!',
+                message: 'Congratulations! You completed a Focus Mode Session!',
                 priority: 2
             });
 
