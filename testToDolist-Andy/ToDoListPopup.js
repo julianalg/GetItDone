@@ -51,9 +51,38 @@ function displayTaskList() {
 
         }
 
-        const taskTextElement = document.createElement("span");
+        const taskButton = document.createElement("button");
 
-        taskTextElement.textContent = task.text;
+        taskButton.innerText = task.text;
+
+        taskButton.addEventListener("click", () => {
+
+            document.querySelector('html').innerHTML = `
+            <!DOCTYPE html>
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8" /> 
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+             
+                    <!--- bootstrap -->
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            
+                    <link rel="stylesheet" href="ToDoListPopup.css" />    
+                </head>
+                <body>
+
+                    <h2>${taskButton.innerText}</h2>
+
+                    <button class="btn btn-outline-primary addtask">Set Due Date</button>
+
+                    <button class="btn btn-outline-primary addtask">Remind me 10 minutes before</button>
+                
+                </body>
+
+            </html>
+            `;
+        });
 
         const removeButton = document.createElement("button");
 
@@ -83,7 +112,7 @@ function displayTaskList() {
 
         taskElement.appendChild(checkbox);
 
-        taskElement.appendChild(taskTextElement);
+        taskElement.appendChild(taskButton);
 
         taskElement.appendChild(removeButton);
 
