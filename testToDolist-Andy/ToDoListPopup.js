@@ -57,6 +57,7 @@ function displayTaskList() {
 
         taskButton.addEventListener("click", () => {
 
+            //Somehow make this code more elegant(it switches to a task detail view)
             document.querySelector('html').innerHTML = `
             <!DOCTYPE html>
             <html lang="en">
@@ -71,6 +72,8 @@ function displayTaskList() {
                     <link rel="stylesheet" href="ToDoListPopup.css" />    
                 </head>
                 <body>
+
+                    <a href="./ToDoListPopup.html"><button id="back" href=>Back</button></a>
 
                     <h2>${taskButton.innerText}</h2>
 
@@ -179,11 +182,9 @@ function storeList() {
 
 }
 
-const addTaskForm = document.getElementById("addTaskForm"); 
+const addTaskButton = document.getElementById("addTask"); 
 
-addTaskForm.addEventListener("submit", (event) => {
-
-    event.preventDefault(); //So we can do things with the info in the form
+addTaskButton.addEventListener("click", () => {
 
     const taskContent = document.getElementById("taskContent");
 

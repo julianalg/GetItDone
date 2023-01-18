@@ -1,3 +1,5 @@
+console.log("Loading background.js");
+
 chrome.alarms.create({
 
     periodInMinutes: 1 / 60
