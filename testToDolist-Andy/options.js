@@ -2,6 +2,7 @@ console.log("Loading options.js");
 
 let blacklistedURLs = [];
 let whitelistedURLs = [];
+let totalIndex = 0; // variable to store the id of each rule rather than generating a random number to avoid duplicate ids
 
 chrome.storage.sync.get(["blacklistedURLs"], (result) => {
     
@@ -43,7 +44,8 @@ function addBlacklistURL(url) {
 
     console.log("URL being added to blacklist...");
 
-    let id = Math.floor((Math.random() * 1000000) + 1);
+    let id = totalIndex + 1;
+    totalIndex++;
 
     blacklistedURLs.push({
 
@@ -70,7 +72,8 @@ function addWhitelistURL(url) {
 
     console.log("URL being added to whitelist...");
 
-    let id = Math.floor((Math.random() * 1000000000) + 100001);
+    let id = totalIndex + 1;
+    totalIndex++;
 
     whitelistedURLs.push({
 
