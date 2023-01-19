@@ -11,16 +11,22 @@
         <link rel="stylesheet" href="ToDoListPopup.css" />    
     </head>
     <body>
-
-        <h2></h2>
         
-        <form id="blackListForm">
+        <form id="blacklistForm">
             <input type="text" id="blacklistedURL">
             <button type="submit" class="btn btn-outline-primary addtask" id="Blacklist">Blacklist</button>
         </form>
 
+        <form id="whitelistForm">
+            <input type="text" id="whitelistedURL">
+            <button type="submit" class="btn btn-outline-primary addtask" id="Whitelist">Whitelist</button>
+        </form>
+
         <p>Blacklisted Sites</p>
-        <div></div>
+        <div id="blacklistedSites"></div>
+
+        <p>Whitelisted Sites</p>
+        <div id="whitelistedSites"></div>
 
     </body>
 
