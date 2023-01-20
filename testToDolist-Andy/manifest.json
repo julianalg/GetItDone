@@ -1,6 +1,6 @@
  {
     "manifest_version": 3,
-    "name": "Test To-Do List",
+    "name": "GetItDone",
     "version": "1.0",
     "action": {
         "default_popup": "ToDoListPopup.html"

@@ -1,9 +1,8 @@
 html {
-    height: 200px;  
-    width: 200px;     
-    
+    width:780px; 
+    height:580px;
 }
-/* expands chrome extension window */
+
 
 body {
     text-align: center;
@@ -20,4 +19,10 @@ body {
 
 .timer__display {
     font-size: 20px;
+}
+
+a {
+    text-decoration: underline;
+    
+    margin: 10px;
 }

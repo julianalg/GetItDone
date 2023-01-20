@@ -51,7 +51,7 @@ function displayTaskList() {
 
         }
 
-        const taskButton = document.createElement("button");
+        const taskButton = document.createElement("a");
 
         taskButton.innerText = task.text;
 
