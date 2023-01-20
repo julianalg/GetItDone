@@ -3,7 +3,7 @@
     "name": "GetItDone",
     "version": "1.0",
     "action": {
-        "default_popup": "ToDoListPopup.html"
+        "default_popup": "toDoIndex.html"
     },
     "icons": {
         "16": "images/icon-16.png",
