@@ -98,6 +98,13 @@ function displayTaskList() {
                 console.log(task.dueDate);
 
                 console.log(task.dueDate.getTime());
+                
+                (async () => {
+                    const response = await chrome.runtime.sendMessage({alarmName: task.text, dueDate: task.dueDate.getTime()});
+
+                    console.log(response);
+
+                  })();
 
                 chrome.alarms.create(task.text, {when: task.dueDate.getTime()});
             

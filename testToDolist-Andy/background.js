@@ -73,6 +73,8 @@ chrome.alarms.onAlarm.addListener((alarm) => {
         
     } else {
 
+        console.log("Else block trigged in background.js...")
+
         chrome.notifications.create('test', {
             type: 'basic',
             iconUrl: './images/icon-128.png',
@@ -85,4 +87,16 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
     }
 
-}); 
+});
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+
+        console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
+
+        chrome.alarms.create(request.alarmName, {when: request.dueDate});
+
+        sendResponse({success: "Message sent succesfully!"});
+
+    }
+);
