@@ -22,7 +22,7 @@
 
     "background": {
 
-        "service_worker": "timerBackground.js"
+        "service_worker": "background.js"
 
     },
 

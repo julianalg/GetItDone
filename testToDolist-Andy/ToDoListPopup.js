@@ -77,7 +77,8 @@ function displayTaskList() {
 
                     <h2>${taskButton.innerText}</h2>
 
-                    <button class="btn btn-outline-primary addtask">Set Due Date</button>
+                    <input type="datetime-local" id="dueDate"></input>
+                    <button class="btn btn-outline-primary addtask" id="setDueDate">Set Due Date</button>
 
                     <button class="btn btn-outline-primary addtask">Remind me 10 minutes before</button>
                 
@@ -85,6 +86,23 @@ function displayTaskList() {
 
             </html>
             `;
+
+            const setDueDateButton = document.getElementById("setDueDate");
+
+            setDueDateButton.addEventListener("click", () => {
+
+                console.log("setDueDate button clicked");
+
+                task.dueDate = new Date(document.getElementById("dueDate").value);
+
+                console.log(task.dueDate);
+
+                console.log(task.dueDate.getTime());
+
+                chrome.alarms.create(task.text, {when: task.dueDate.getTime()});
+            
+            });
+
         });
 
         const removeButton = document.createElement("button");
@@ -140,7 +158,9 @@ function addTask(text) {
 
         text: text,
 
-        completed: false
+        completed: false,
+
+        dueDate: new Date()
 
     });
 
@@ -204,78 +224,6 @@ addTaskButton.addEventListener("click", () => {
 var startingMinutes;
 var startingSeconds;
 var time;
-
-/* var startingMinutes; //If we declare startingMinutes, startingSeconds, or time right now, they will all be 0 because the document just loaded.
-var startingSeconds;
-let time;
-var timer;
-
-const countdownEl = document.getElementById('countdown');
-const startButton = document.getElementById('Start');
-const stopButton = document.getElementById("Stop");
-const resetButton = document.getElementById("Reset");
-
-startButton.addEventListener("click", () => {
-
-    console.log("Starting countdown...");
-
-    //If user does not enter a number, it will default to 25
-    startingMinutes = Number(document.getElementById("StartingMinutes").value);
-
-    startingSeconds = Number(document.getElementById("StartingSeconds").value);
-
-    time = startingMinutes * 60 + startingSeconds;
-
-    if (time <= 0) {
-
-        startingMinutes = 25;
-
-        startingSeconds = 0;
-
-        time = startingMinutes * 60 + startingSeconds;
-
-    }
-
-    timer = setInterval(updateCountdown, 1000);
-
-});
-
-stopButton.addEventListener("click", stopCountdown);
-
-resetButton.addEventListener("click", resetCountdown);
-
-function updateCountdown() {
-    
-    const minutes = Math.floor(time / 60);
-
-    let seconds = time % 60;
-
-    seconds = seconds < 10 ? '0' + seconds : seconds;
-
-    countdownEl.innerHTML = `${minutes}: ${seconds}`;
-
-    time--;
-}
-
-function stopCountdown() {
-
-    console.log("Stopping countdown...");
-
-    clearInterval(timer);
-
-};
-
-function resetCountdown() {
-
-    console.log("Resetting countdown...");
-
-    stopCountdown();
-
-    time = startingMinutes * 60 + startingSeconds;
-
-    countdownEl.innerText = `${startingMinutes}: ${startingSeconds}`;
-
-} */
 
 const countdownEl = document.getElementById('countdown');
 const startButton = document.getElementById('Start');
