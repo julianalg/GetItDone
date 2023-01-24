@@ -73,13 +73,11 @@ chrome.alarms.onAlarm.addListener((alarm) => {
         
     } else {
 
-        console.log("Else block trigged in background.js...")
-
         chrome.notifications.create('test', {
             type: 'basic',
             iconUrl: './images/icon-128.png',
-            title: 'Task complete!',
-            message: 'Congratulations! You completed a task!',
+            title: 'Task due!',
+            message: alarm.name,
             priority: 2
         });
 
@@ -94,9 +92,21 @@ chrome.runtime.onMessage.addListener(
 
         console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
 
-        chrome.alarms.create(request.alarmName, {when: request.dueDate});
+        if (request.type == "setDueDate") {
 
-        sendResponse({success: "Message sent succesfully!"});
+            chrome.alarms.create(request.alarmName, {when: request.dueDate});
+
+            sendResponse({success: "Due Date set succesfully!"});
+
+        } else {
+
+            chrome.alarms.create(request.alarmName, {when: request.remindDate});
+
+            sendResponse({success: "Reminder set succesfully!"});
+
+        }
+    
+        return true;
 
     }
 );

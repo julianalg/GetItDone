@@ -84,8 +84,9 @@ function displayTaskList() {
                     <br>
                     
                     <button class="btn btn-outline-primary addtask" id="setDueDate">Set Due Date</button>
-                
-                    <button class="btn btn-outline-primary addtask">Remind me 10 minutes before</button>
+
+                    <input type="text" id="reminderTime"></input>
+                    <button class="btn btn-outline-primary addtask" id="setReminder">Remind me x minutes before</button>
                 </div>
             
                 
@@ -107,16 +108,42 @@ function displayTaskList() {
                 console.log(task.dueDate.getTime());
                 
                 (async () => {
-                    const response = await chrome.runtime.sendMessage({alarmName: task.text, dueDate: task.dueDate.getTime()});
+                    const response = await chrome.runtime.sendMessage({type: "setDueDate", alarmName: task.text, dueDate: task.dueDate.getTime()});
                     
                     console.log(response);
                     
                 })();
-                
-                chrome.alarms.create(task.text, {when: task.dueDate.getTime()});
-                
             });
-            
+
+            const setReminderButton = document.getElementById("setReminder");
+
+            setReminderButton.addEventListener("click", () => {
+
+                console.log("setReminder button clicked");
+
+                task.dueDate = new Date(document.getElementById("dueDate").value);
+
+                console.log(task.dueDate);
+
+                let reminderTime = document.getElementById("reminderTime").value;
+
+                console.log(reminderTime);
+
+                let remindDate = task.dueDate - reminderTime*1000*60;
+
+                console.log(remindDate);
+
+                (async () => {
+                    
+                    //Below line isn't sending the message for some reason?
+                    const response = await chrome.runtime.sendMessage({type: "setReminder", alarmName: `Reminder for ${task.text} which is due in ${reminderTime} minutes`, remindDate: remindDate});
+                    
+                    console.log(response);
+
+                })();
+
+            });
+
         });
         
         const removeButton = document.createElement("button");
