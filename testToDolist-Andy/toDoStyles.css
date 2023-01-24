@@ -1,28 +1,67 @@
+
+/* extends chrome extenstion window */
 html {
     width:780px; 
     height:580px;
 }
 
-
 body {
     text-align: center;
+}
+
+/* to do  */
+.to-do {
+    width: 40%;
+    float: right;
+}
+
+.to-do a {
+    text-decoration: underline;
+    margin: 10px;
 }
 
 .addtask {
     margin: 5px;
 }
 
+.tasks {
+    padding: 5px;
+}
+
+/* focus  */
 .timer__button {
     margin-top: 10px;
     font-size: 20px;
 }
 
-.timer__display {
-    font-size: 20px;
+.time_select {
+    margin-top: 100px;
 }
 
-a {
-    text-decoration: underline;
-    
-    margin: 10px;
+.timer__display {
+    font-size: 20px;
+    padding: 70px 0;
+    text-align: center;
+}
+
+.remove-button {
+    font-size: 10px;
+}
+
+.focus {
+    width: 60%;
+    float: left;
+}
+
+#countdown {
+    font-size: 70px;
+}
+
+.controls {
+    position: fixed;
+  left: 30%;
+  bottom: 20px;
+  transform: translate(-50%);
+  margin: 0 auto;
+
 }

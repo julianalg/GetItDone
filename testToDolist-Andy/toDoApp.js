@@ -38,6 +38,7 @@ function displayTaskList() {
         const task = taskList[i];
         
         const taskElement = document.createElement("li");
+        // taskElement.classList.add("tasks")
         
         //Marks as complete or incomplete for later
         
@@ -78,11 +79,13 @@ function displayTaskList() {
                     <a href="./toDoIndex.html"><button id="back" class="btn btn-outline-danger back-btn">dismiss</button></a>
                 </span>
                 <br> 
+
+                <p></p>
                 
                 <div class="due-dates">
                     <input type="datetime-local" id="dueDate"></input>
                     <br>
-                    
+
                     <button class="btn btn-outline-primary addtask" id="setDueDate">Set Due Date</button>
 
                     <input type="text" id="reminderTime"></input>
@@ -148,7 +151,11 @@ function displayTaskList() {
         
         const removeButton = document.createElement("button");
         
-        removeButton.innerText = "Remove";
+        removeButton.innerText = "X";
+
+        removeButton.classList.add("btn")
+        removeButton.classList.add("btn-danger")
+        removeButton.classList.add("remove-button")
         
         removeButton.addEventListener("click", () => {
             
@@ -200,6 +207,8 @@ function addTask(text) {
         text: text,
         
         completed: false,
+
+        addedDate: new Date(),
         
         dueDate: new Date()
         

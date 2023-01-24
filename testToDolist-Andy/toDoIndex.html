@@ -1,56 +1,82 @@
 <!DOCTYPE html>
 <html lang="en" id="main_page">
-    <head>
-        <meta charset="UTF-8" /> 
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
-        <!--- bootstrap -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<head>
+    <meta charset="UTF-8" /> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!--- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="toDoStyles.css" />    
-    </head>
-    <body>
-
-        <h2>GetItDone</h2>
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/ec1a17edaa.js" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="toDoStyles.css" />    
+</head>
+<body>
+    
+    <div>
+        <h1>GetItDone</h1>      
         
-       
+    </div>
 
-        <div class="container">
-            <div class="timer">
+    <hr>
+    
+    <div class="container focus">
+        <div class="timer">
+            <div class="timer__display">
+                <h1 id="countdown"></h1>
+                <p class="timer__label">remaining</p>
+            </div>
+
+            <div class="controls">
+                <div class="time__select">
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="number" class="form-control input-field" id="StartingMinutes" min="0" max="60" placeholder="25">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control input-field" id="StartingSeconds" placeholder="00" min="0" max="60">
+                        </div>
+                      </div>
+                     
+                </div>
+                    
+                
+    
                 <div class="timer__controls">
-                    <p><input type="number" id="StartingMinutes" placeholder="25">: <input type="number" id="StartingSeconds" placeholder="00" max="60"></p>
                     <button type="submit" class="timer__button btn btn-success" id="Start">Start</button>
                     <button class="timer__button btn btn-danger" id="Stop">Stop</button>
                     <button class="timer__button btn btn-secondary" id="Reset">Reset</button>
                 </div>
-                <div class="timer__display">
-                    <h1 id="countdown"></h1>
-                    <p class="timer__label">Session</p>
-                </div>
+                
             </div>
+
+            
         </div>
-
-        <hr>
-
+    </div>
+    
+    
+    <div class="container to-do">
         <form id="addTaskForm">
-            <input type="text" id="taskContent" placeholder="Do groceries">
+            <input type="text" id="taskContent" placeholder="Study for Ch. 5 Exam">
             <button type="submit" class="btn btn-outline-primary addtask" id="addTask">Add Task</button>
         </form>
         
-        <p>Incomplete Tasks</p>
+        <strong>Incomplete Tasks</strong>
         <div id="taskList">
-
+            <!-- to be filled in by js -->
         </div>
-
-        <p>Completed Tasks</p>
+        
+        <strong>Completed Tasks</strong>
         <div id="completedTasks">
-
+            <!-- to be filled in by js -->
         </div>
+    </div>
+    
+</body>
 
-    </body>
-
-    <!--- Put script tag at the bottom, or things break(its something to do with the order stuff is executed)-->
-    <script src="./toDoApp.js"></script>
+<!--- Put script tag at the bottom, or things break(its something to do with the order stuff is executed)-->
+<script src="./toDoApp.js"></script>
 
 </html>
