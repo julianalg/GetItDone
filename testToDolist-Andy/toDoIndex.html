@@ -15,9 +15,10 @@
 </head>
 <body>
     
-    <div>
+    <div class="header">
         <h1>GetItDone</h1>      
-        
+        <h3 id="hp-readout">HP: 100</h3>
+        <button id="hp-test">test hp</button>
     </div>
 
     <hr>
@@ -58,8 +59,8 @@
     
     
     <div class="container to-do">
-        <form id="addTaskForm">
-            <input type="text" id="taskContent" placeholder="Study for Ch. 5 Exam">
+        <form id="form">
+            <input type="text" id="taskContent" class="form-control input-field" placeholder="Study for Ch. 5 Exam">
             <button type="submit" class="btn btn-outline-primary addtask" id="addTask">Add Task</button>
         </form>
         
@@ -69,7 +70,7 @@
         </div>
         
         <strong>Completed Tasks</strong>
-        <div id="completedTasks">
+        <div id="completedTasks" class="completed-tasks">
             <!-- to be filled in by js -->
         </div>
     </div>
@@ -78,5 +79,6 @@
 
 <!--- Put script tag at the bottom, or things break(its something to do with the order stuff is executed)-->
 <script src="./toDoApp.js"></script>
+<script src="./focusGame.js"></script>
 
 </html>

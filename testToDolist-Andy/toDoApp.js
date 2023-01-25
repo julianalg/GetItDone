@@ -338,24 +338,34 @@ startButton.addEventListener("click", () => {
         time = startingMinutes * 60 + startingSeconds;
         
     }
+
+    countdownEl.style.color = '#7DD076'
     
     chrome.storage.local.set({
         
         timeLeft: time,
         
-        isRunning: true
+        isRunning: true,
+
+        backgroundColor: '#7DD076'
         
     });
+
+    
     
 }); 
 
 stopButton.addEventListener("click", () => {
     
     console.log("Stopping countdown...");
+
+    countdownEl.style.color = '#F4CB81'
     
     chrome.storage.local.set({
         
         isRunning: false,
+
+
         
     });
     
@@ -364,6 +374,8 @@ stopButton.addEventListener("click", () => {
 resetButton.addEventListener("click", () => {
     
     console.log("Resetting countdown...");
+    
+    countdownEl.style.color = '#000000'
     
     chrome.storage.local.set({
         

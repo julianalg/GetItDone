@@ -7,6 +7,7 @@ html {
 
 body {
     text-align: center;
+    background-color: #f0f0f0;
 }
 
 /* to do  */
@@ -59,9 +60,13 @@ body {
 
 .controls {
     position: fixed;
-  left: 30%;
-  bottom: 20px;
-  transform: translate(-50%);
-  margin: 0 auto;
+    left: 30%;
+    bottom: 20px;
+    transform: translate(-50%);
+    margin: 0 auto;
+}
 
+.completed-tasks {
+    text-decoration: line-through;
+    
 }

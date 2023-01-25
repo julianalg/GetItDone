@@ -1,0 +1,28 @@
+body {
+    background-color: #FF0032;
+    text-align: center;
+    color: white;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+
+
+}
+
+.character-stats__stat {
+    font-size: 20px;
+}
+
+.strong {
+    font-weight: 900;
+}
