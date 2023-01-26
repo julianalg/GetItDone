@@ -97,6 +97,10 @@ function displayTaskList() {
                 </body>
             
             `;
+
+            //Essentially, I'm manually replacing the html, then treating it as if I switched to a different html page when I'm really on the same one.
+            //This means if, in the future, we want to make this page fancier, we will have to do all the coding below, which means its really ugly, as I said above.
+            //It also means if we don't call displayList() or displayCountdown() when we load toDoIndex.html, it will theoretically be a blank page.
             
             const setDueDateButton = document.getElementById("setDueDate");
             
@@ -138,7 +142,6 @@ function displayTaskList() {
 
                 (async () => {
                     
-                    //Below line isn't sending the message for some reason?
                     const response = await chrome.runtime.sendMessage({type: "setReminder", alarmName: `Reminder for ${task.text} which is due in ${reminderTime} minutes`, remindDate: remindDate});
                     
                     console.log(response);
