@@ -119,7 +119,7 @@ function removeWhitelistURL(index, id) {
 
     storeURL();
 
-    chrome.declrativeNetReqquest.updateDynamicRules({
+    chrome.declrativeNetRequest.updateDynamicRules({
 
         removeRuleIds: [id]
 
