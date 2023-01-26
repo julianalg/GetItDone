@@ -2,9 +2,16 @@ console.log("Loading focusGame.js");
 
 let hp;
 let level; 
-
+let body = document.getElementById("body")
 const hpReadout = document.getElementById('hp-readout');
 const hpTest = document.getElementById('hp-test');
+
+body.addEventListener("load", function() {
+    chrome.storage.sync.get(["user"], (result) => {
+        console.log(result.user.hp)
+        hpReadout.innerHTML = result.user.hp
+    })
+})
 
 hpTest.addEventListener("click", function() {
     
@@ -12,7 +19,7 @@ hpTest.addEventListener("click", function() {
 
         if (chrome.runtime.lastError) {
 
-            console.log('Error setting');
+            console.log('Error setting' + chrome.runtime.lastError);
 
         }
         

@@ -1,0 +1,15 @@
+html {
+    width:780px; 
+    height:580px;
+}
+
+body {
+    text-align: center;
+
+}
+
+.whitelist, .blacklist {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

@@ -53,7 +53,7 @@ function addBlacklistURL(url) {
 
         "priority": 1,
 
-        "action": {"type": "redirect", "redirect": {"extensionPath": "/blocking/not-allowed.html"}},
+        "action": {"type": "redirect", "redirect": {"extensionPath": "/blocking/not-allowed.html"}}, 
 
         "condition": {
 

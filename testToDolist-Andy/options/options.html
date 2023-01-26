@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" id="main_page">
+    <head>
+        <meta charset="UTF-8" /> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+        <!--- bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="optionsStyles.css" />    
+    </head>
+    <body>
+
+        <div class="blacklist">
+            <form id="blacklistForm">
+                <input type="text" label="blacklist" id="blacklistedURL" placeholder="twitter.com" type="url">
+                <button type="submit" class="btn btn-outline-primary addtask" id="Blacklist">Blacklist</button>
+            </form>
+    
+            <p>Blacklisted Sites</p>
+            <div id="blacklistedSites"></div>
+    
+        </div>
+        
+        <div class="whitelist">
+            <form id="whitelistForm">
+                <input type="text" label="whitelist" id="whitelistedURL" placeholder="classroom.google.com" type="url">
+                <button type="submit" class="btn btn-outline-primary addtask" id="Whitelist">Whitelist</button>
+            </form>
+    
+    
+            <p>Whitelisted Sites</p>
+            <div id="whitelistedSites"></div>
+        </div>
+       
+       
+
+    </body>
+
+    <!--- Put script tag at the bottom, or things break(its something to do with the order stuff is executed)-->
+    <script src="./options.js"></script>
+
+</html>
