@@ -53,7 +53,7 @@ function addBlacklistURL(url) {
 
         "priority": 1,
 
-        "action": {"type": "block"},
+        "action": {"type": "redirect", "redirect": {"extensionPath": "/blocking/not-allowed.html"}},
 
         "condition": {
 
@@ -155,7 +155,7 @@ function blacklistURLs() {
 
                 "priority": 1,
 
-                "action": { "type": "block" },
+                "action": {"type": "redirect", "redirect": {"extensionPath": "/blocking/not-allowed.html"}},
 
                 "condition": {
 
@@ -195,7 +195,7 @@ function whitelistURLs() {
 
                 "priority": 1,
 
-                "action": { "type": "allow" },
+                "action": {"type": "allow"},
 
                 "condition": {
 
@@ -222,6 +222,8 @@ function displayURLs() {
     const whitelistedSitesEl = document.getElementById("whitelistedSites");
 
     blacklistedSitesEl.innerHTML = ""; 
+
+    console.log("Url's being displayed...");
 
     // Below code renders the blacklisted URLS
 
@@ -309,6 +311,8 @@ blacklistButton.addEventListener("click", () => {
         displayURLs();
 
         blacklistURLs();
+
+        console.log("Urls being blacklisted...");
         
     }
 
@@ -329,6 +333,8 @@ whitelistButton.addEventListener("click", () => {
         displayURLs();
 
         whitelistURLs();
+
+        console.log("Urls being whitelisted...");
 
     }
 
