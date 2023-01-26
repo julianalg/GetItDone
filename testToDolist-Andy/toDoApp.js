@@ -368,8 +368,6 @@ stopButton.addEventListener("click", () => {
         
         isRunning: false,
 
-
-        
     });
     
 });
