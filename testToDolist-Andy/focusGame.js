@@ -1,8 +1,10 @@
+console.log("Loading focusGame.js");
+
 let hp;
 let level; 
 
-const hpReadout = document.getElementById('hp-readout')
-const hpTest = document.getElementById('hp-test')
+const hpReadout = document.getElementById('hp-readout');
+const hpTest = document.getElementById('hp-test');
 
 hpTest.addEventListener("click", function() {
     
@@ -14,12 +16,11 @@ hpTest.addEventListener("click", function() {
 
         }
         
-        console.log('Stored name: ' + value.name);
-    })
+    });
 
     chrome.storage.local.get(["user"], (result) => {
 
-        console.log(result.hp);
+        console.log(result.user.hp);
 
         hpReadout.innerHTML = "HP: " + result.user.hp;
 

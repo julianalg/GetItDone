@@ -1,4 +1,4 @@
-console.log("Javascript started");
+console.log("Loading toDoApp.js");
 
 let taskList = [];
 
