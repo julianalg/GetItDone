@@ -8,7 +8,7 @@ const hpTest = document.getElementById('hp-test');
 
 hpTest.addEventListener("click", function() {
     
-    chrome.storage.local.set({user: {hp: 69}}, () => {
+    chrome.storage.sync.set({"user": {hp: 69}}, () => {
 
         if (chrome.runtime.lastError) {
 
@@ -18,7 +18,7 @@ hpTest.addEventListener("click", function() {
         
     });
 
-    chrome.storage.local.get(["user"], (result) => {
+    chrome.storage.sync.get(["user"], (result) => {
 
         console.log(result.user.hp);
 
@@ -29,7 +29,7 @@ hpTest.addEventListener("click", function() {
 });
 
 
-chrome.storage.local.set({"user": {
+chrome.storage.sync.set({"user": {
     
     hp: 0, 
     
@@ -37,7 +37,7 @@ chrome.storage.local.set({"user": {
 
 }});
 
-chrome.storage.local.get(["user"], (result) => {
+chrome.storage.sync.get(["user"], (result) => {
     
     console.log(result.user.hp);
 
