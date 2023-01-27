@@ -42,6 +42,8 @@ chrome.storage.sync.get(["whitelistedURLs"], (result) => {
 
 function addBlacklistURL(url) {
 
+    
+
     console.log("URL being added to blacklist...");
 
     let id = totalIndex + 1;

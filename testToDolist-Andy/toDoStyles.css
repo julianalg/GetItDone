@@ -10,6 +10,20 @@ body {
     background-color: #f0f0f0;
 }
 
+/* header */
+.header {
+    display: flex;
+}
+
+.header a  {
+    margin-left: auto; 
+    height: 40px;
+}
+
+.header h1 {
+    margin-left: 300px;
+}
+
 /* to do  */
 .to-do {
     width: 40%;
