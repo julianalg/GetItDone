@@ -7,11 +7,15 @@ const hpReadout = document.getElementById('hp-readout');
 const hpTest = document.getElementById('hp-test');
 
 body.addEventListener("load", function() {
+
     chrome.storage.sync.get(["user"], (result) => {
+
         console.log(result.user.hp)
+
         hpReadout.innerHTML = result.user.hp
-    })
-})
+
+    });
+});
 
 hpTest.addEventListener("click", function() {
     
