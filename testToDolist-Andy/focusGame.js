@@ -20,28 +20,11 @@ function storeHP() {
 }
 
 body.addEventListener("load", function() {
-
     chrome.storage.sync.get(["user"], (result) => {
-
-        if (result.user && Object.keys(obj).length === 0 && Object.getPrototypeOf(result.user) === Object.prototype) { 
-
-            console.log(result.user.hp);
-
-            user = result.user;
-
-        } else {
-
-            chrome.storage.sync.set({"user": {hp: 0, level: 0}});
-
-            user = {hp: 0, level: 0}; 
-
-        }
-
-    });
-
-    displayHP();
-
-});
+        console.log(result.user.hp)
+        hpReadout.innerHTML = result.user.hp
+    })
+})
 
 hpTest.addEventListener("click", function() {
     

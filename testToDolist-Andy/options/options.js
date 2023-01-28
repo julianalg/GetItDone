@@ -2,7 +2,7 @@ console.log("Loading options.js");
 
 let blacklistedURLs = [];
 let whitelistedURLs = [];
-let totalURLIndex = 0; // variable to store the id of each rule rather than generating a random number to avoid duplicate ids
+let totalIndex = 0; // variable to store the id of each rule rather than generating a random number to avoid duplicate ids
 
 chrome.storage.sync.get(["blacklistedURLs"], (result) => {
     
@@ -40,28 +40,14 @@ chrome.storage.sync.get(["whitelistedURLs"], (result) => {
 
 });
 
-chrome.storage.sync.get(["totalURLIndex"], (result) => {
-
-    if (result.totalURLIndex) {
-        
-        totalURLIndex= result.totalURLIndex;
-
-    } 
-    
-    else {
-        
-        chrome.storage.sync.set({"totalURLIndex": 0});
-    
-    }
-
-});
-
 function addBlacklistURL(url) {
+
+    
 
     console.log("URL being added to blacklist...");
 
-    let id = totalURLIndex + 1;
-    totalURLIndex++;
+    let id = totalIndex + 1;
+    totalIndex++;
 
     blacklistedURLs.push({
 
@@ -88,8 +74,8 @@ function addWhitelistURL(url) {
 
     console.log("URL being added to whitelist...");
 
-    let id = totalURLIndex + 1;
-    totalURLIndex++;
+    let id = totalIndex + 1;
+    totalIndex++;
 
     whitelistedURLs.push({
 
@@ -135,7 +121,7 @@ function removeWhitelistURL(index, id) {
 
     storeURL();
 
-    chrome.declarativeNetRequest.updateDynamicRules({
+    chrome.declrativeNetRequest.updateDynamicRules({
 
         removeRuleIds: [id]
 
@@ -237,9 +223,7 @@ function displayURLs() {
 
     const whitelistedSitesEl = document.getElementById("whitelistedSites");
 
-    blacklistedSitesEl.innerHTML = "";
-    
-    whitelistedSitesEl.innerHTML = "";
+    blacklistedSitesEl.innerHTML = ""; 
 
     console.log("Url's being displayed...");
 
@@ -247,7 +231,7 @@ function displayURLs() {
 
     for (let i = 0; i < blacklistedURLs.length; i++) {
 
-        const blacklistedURL = blacklistedURLs[i];
+        const whitelistedURL = blacklistedURLs[i];
 
         const URLElement = document.createElement("li");
 
@@ -255,7 +239,7 @@ function displayURLs() {
 
         const siteURL = document.createElement("span");
 
-        siteURL.textContent = blacklistedURL.condition.urlFilter;
+        siteURL.textContent = whitelistedURL.condition.urlFilter;
 
         const removeButton = document.createElement("button");
 
@@ -263,7 +247,7 @@ function displayURLs() {
 
         removeButton.addEventListener("click", () => {
 
-            removeBlacklistURL(i, blacklistedURL.id);
+            removeBlacklistURL(i, whitelistedURL.id);
 
             displayURLs();
         
@@ -328,9 +312,9 @@ blacklistButton.addEventListener("click", () => {
         
         displayURLs();
 
-        console.log("URLs being blacklisted...");
-
         blacklistURLs();
+
+        console.log("Urls being blacklisted...");
         
     }
 
@@ -350,9 +334,9 @@ whitelistButton.addEventListener("click", () => {
         
         displayURLs();
 
-        console.log("URLs being whitelisted...");
-
         whitelistURLs();
+
+        console.log("Urls being whitelisted...");
 
     }
 
