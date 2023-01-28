@@ -20,11 +20,15 @@ function storeHP() {
 }
 
 body.addEventListener("load", function() {
+
     chrome.storage.sync.get(["user"], (result) => {
-        console.log(result.user.hp)
-        hpReadout.innerHTML = result.user.hp
-    })
-})
+
+        console.log(result.user.hp);
+
+        hpReadout.innerHTML = result.user.hp;
+
+    });
+});
 
 hpTest.addEventListener("click", function() {
     

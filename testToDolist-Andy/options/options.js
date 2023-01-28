@@ -2,7 +2,7 @@ console.log("Loading options.js");
 
 let blacklistedURLs = [];
 let whitelistedURLs = [];
-let totalIndex = 0; // variable to store the id of each rule rather than generating a random number to avoid duplicate ids
+let totalURLIndex = 0; // variable to store the id of each rule rather than generating a random number to avoid duplicate ids
 
 chrome.storage.sync.get(["blacklistedURLs"], (result) => {
     
@@ -40,14 +40,30 @@ chrome.storage.sync.get(["whitelistedURLs"], (result) => {
 
 });
 
-function addBlacklistURL(url) {
-
+chrome.storage.sync.get(["totalURLIndex"], (result) => {
     
+    if (result.totalURLIndex) {
+        
+        totalURLIndex = result.totalURLIndex;
+
+    } 
+    
+    else {
+        
+        chrome.storage.sync.set({"totalURLIndex": 0});
+    
+    }
+
+    displayURLs();
+
+});
+
+function addBlacklistURL(url) {
 
     console.log("URL being added to blacklist...");
 
-    let id = totalIndex + 1;
-    totalIndex++;
+    let id = totalURLIndex + 1;
+    totalURLIndex++;
 
     blacklistedURLs.push({
 
@@ -74,8 +90,8 @@ function addWhitelistURL(url) {
 
     console.log("URL being added to whitelist...");
 
-    let id = totalIndex + 1;
-    totalIndex++;
+    let id = totalURLIndex + 1;
+    totalURLIndex++;
 
     whitelistedURLs.push({
 
@@ -121,7 +137,7 @@ function removeWhitelistURL(index, id) {
 
     storeURL();
 
-    chrome.declrativeNetRequest.updateDynamicRules({
+    chrome.declarativeNetRequest.updateDynamicRules({
 
         removeRuleIds: [id]
 
