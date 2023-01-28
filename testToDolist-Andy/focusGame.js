@@ -26,7 +26,7 @@ body.addEventListener("load", function() {
 
         console.log(result.user.hp);
 
-        hp = result.user.hp;
+        localHp = result.user.hp;
 
     });
 
@@ -36,7 +36,7 @@ body.addEventListener("load", function() {
 
 hpTest.addEventListener("click", function() {
     
-    hp += 5;
+    localHp += 5;
 
     storeHP();
 
