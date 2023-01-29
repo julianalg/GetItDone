@@ -1,22 +1,58 @@
 console.log("Loading blocking.js");
-const hpDisplay = document.getElementById("HP");
+let user = [];
+
 const workButton = document.getElementById("backToWork");
 const bypassButton = document.getElementById("bypass");
-let userHP = document.getElementById("backToWork");
 
-chrome.storage.sync.get(["user"], (result) => {
+window.addEventListener("DOMContentLoaded", function() {
 
-    hpDisplay.innerText = result.user.hp - 5;
+    console.log("Event listener triggered");
 
-    chrome.storage.sync.set({"user": {hp: hpDisplay.innerText, level: 0}});
+    chrome.storage.sync.get(["user"], (result) => {
+
+        if (result.user) {
+
+            user = result.user;
+
+            console.log(user);
+
+        } else {
+
+            user = [{hp: 0, level: 0}];
+
+            console.log(user);
+
+        }
+        
+        removeHP(5);
+
+        displayHP();
+
+    });
 
 });
 
-chrome.storage.sync.get(["user"], (result) => {
-    
-    console.log(result.user.hp);
+function displayHP() {
 
-});
+    const hpDisplay = document.getElementById('HP');
+
+    hpDisplay.innerText = user[0].hp;
+
+}
+
+function storeHP() {
+
+    chrome.storage.sync.set({"user": [{hp: user[0].hp, level: user[0].level}]});
+
+}
+
+function removeHP(hp) {
+
+    user[0].hp -= hp;
+
+    storeHP();
+
+}
 
 workButton.addEventListener("click", function() {
 
@@ -26,15 +62,13 @@ workButton.addEventListener("click", function() {
 
 bypassButton.addEventListener("click", function() {
 
-    chrome.storage.sync.get(["user"], (result) => {
+    console.log(user[0].hp);
 
-        console.log(result.user.hp);
+    removeHP(20);
 
-        console.log(result.user.hp - 20);
+    console.log(user[0].hp);
 
-        chrome.storage.sync.set({"user": {hp: result.user.hp - 20, level: 0}});
-
-    });
+    displayHP();
 
     // i need to figure out how to get the URL that the user was attempting to go to 
 

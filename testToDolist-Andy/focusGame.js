@@ -1,38 +1,53 @@
 console.log("Loading focusGame.js");
 
-let user;
-let body = document.getElementById("body");
+let user = [];
+
 const hpReadout = document.getElementById('hp-readout');
 const hpTest = document.getElementById('hp-test');
+
+window.addEventListener("DOMContentLoaded", function() {
+
+    console.log("event listener triggered");
+
+    chrome.storage.sync.get(["user"], (result) => {
+
+        if (result.user) {
+
+            user = result.user;
+
+            console.log(user);
+
+        } else {
+
+            user = [{hp: 0, level: 0}];
+
+            console.log(user);
+
+        }
+
+        displayHP();
+
+    });
+
+});
 
 function displayHP() {
 
     const hpReadout = document.getElementById('hp-readout');
 
-    hpReadout.innerText = user.hp;
+    hpReadout.innerText = user[0].hp;
 
 }
 
 function storeHP() {
 
-    chrome.storage.sync.set({"user": {hp: user.hp}});
+    chrome.storage.sync.set({"user": [{hp: user[0].hp, level: user[0].level}]});
 
 }
 
-body.addEventListener("load", function() {
-
-    chrome.storage.sync.get(["user"], (result) => {
-
-        console.log(result.user.hp);
-
-        hpReadout.innerHTML = result.user.hp;
-
-    });
-});
-
 hpTest.addEventListener("click", function() {
     
-    user.hp += 5;
+    user[0].hp += 5;
 
     storeHP();
 
