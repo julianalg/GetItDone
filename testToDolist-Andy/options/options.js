@@ -451,7 +451,7 @@ function displayPage() {
 
         removeButton.addEventListener("click", () => {
 
-            removeBlacklistURL(blacklistedURL);
+            removeBlacklistURL(blacklistedURL.condition.urlFilter);
 
             displayPage();
         
@@ -484,7 +484,7 @@ function displayPage() {
 
         removeButton.addEventListener("click", () => {
 
-            removeWhitelistURL(whitelistedURL);
+            removeWhitelistURL(whitelistedURL.condition.urlFilter);
 
             displayPage();
         
