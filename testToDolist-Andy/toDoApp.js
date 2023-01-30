@@ -288,6 +288,7 @@ const countdownEl = document.getElementById('countdown');
 const startButton = document.getElementById('Start');
 const stopButton = document.getElementById("Stop");
 const resetButton = document.getElementById("Reset");
+const resumeButton = document.getElementById("Resume");
 
 function displayCountdown() {
     
@@ -333,35 +334,33 @@ startButton.addEventListener("click", () => {
     
     // If user does not enter a number, it will default to 25 minutes
     startingMinutes = Number(document.getElementById("StartingMinutes").value);
-    
+            
     startingSeconds = Number(document.getElementById("StartingSeconds").value);
-    
+            
     time = startingMinutes * 60 + startingSeconds;
-    
+            
     if (time <= 0) {
-        
+                
         startingMinutes = 25;
-        
+                
         startingSeconds = 0;
-        
+                
         time = startingMinutes * 60 + startingSeconds;
-        
+                
     }
-    
+            
     countdownEl.style.color = '#7DD076'
-    
+            
     chrome.storage.local.set({
-        
+                
         timeLeft: time,
-        
+                
         isRunning: true,
-        
+                
         backgroundColor: '#7DD076'
-        
+                
     });
-    
-    
-    
+      
 }); 
 
 stopButton.addEventListener("click", () => {
@@ -393,3 +392,15 @@ resetButton.addEventListener("click", () => {
     });
     
 }); 
+
+resumeButton.addEventListener("click", () => {
+
+    console.log("Pausing Countdown...") ;
+    
+    chrome.storage.local.set({
+
+        isRunning: true,
+
+    });
+
+});

@@ -15,11 +15,25 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
             const time = result.timeLeft ?? -1; // If timeLeft hasn't been created/returns null, set to -1 to reset timer.
 
-            const isRunning = result.isRunning ?? true; // If isRunning doesn't exist/returns null, set to false 
+            const isRunning = result.isRunning ?? true; // If isRunning doesn't exist/returns null, set to true\
+            
+            // If its not running and time is -1(aka we pressed reset), set timeLeft to null so toDoApp.js can handle it in its displayTime function.
 
-            //If the time hits 0, reset countdown by setting to null, stop running, and send a notification.
+            if (isRunning === false && timeLeft === -1) {
 
-            if (result.timeLeft === 0) {
+                chrome.storage.local.set({
+
+                    timeLeft: null,
+
+                });
+
+                return;
+
+            }
+
+            //If the time is less than 0, reset countdown by setting to null, stop running, and send a notification.
+
+            if (result.timeLeft <= 0) {
 
                 chrome.storage.local.set({
 
@@ -43,25 +57,13 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
             // If isRunning is false(aka we pressed stop), don't do anything.
 
-            if (!isRunning) {
+            if (isRunning === false) {
 
                 return;
 
             }
 
-            // If its not running and time is -1(aka we pressed reset), set timeLeft to null so popup.js can handle it in its displayTime function.
-
-            if (!isRunning && timeLeft === -1) {
-
-                chrome.storage.local.set({
-
-                    timeLeft: null,
-
-                });
-
-                return;
-
-            }
+            // If timer is running, aka isRunning == true and timeLeft != -1, null, or 0
 
             chrome.storage.local.set({
 
