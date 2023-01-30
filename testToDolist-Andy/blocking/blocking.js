@@ -16,8 +16,6 @@ window.addEventListener("DOMContentLoaded", function() {
 
             console.log(user);
 
-            
-
         } else {
 
             user = [{hp: 0, level: 0}];
@@ -30,8 +28,6 @@ window.addEventListener("DOMContentLoaded", function() {
 
         displayHP();
 
-        
-
     });
 
 });
@@ -43,7 +39,9 @@ function displayHP() {
     hpDisplay.innerText = user[0].hp;
 
     if (user[0].hp <= 0) {
-        alert("Game over")
+
+        alert("Game over");
+
     }  
 
 }

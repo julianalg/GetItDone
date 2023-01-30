@@ -1,6 +1,6 @@
 console.log("Loading toDoApp.js");
-let taskList = [];
 
+let taskList = [];
 
 chrome.storage.sync.get(["taskList"], (result) => {
     
@@ -19,7 +19,25 @@ chrome.storage.sync.get(["taskList"], (result) => {
     
 });
 
-//Above code to load taskList from storage if possible.
+chrome.storage.sync.get(["user"], (result) => {
+
+    if (result.user) {
+
+        user = result.user;
+
+        console.log(user);
+
+    } else {
+
+        user = [{hp: 0, level: 0}];
+
+        console.log(user);
+
+    }
+
+});
+
+//Above code to load variables from storage if possible.
 
 function displayTaskList() {
     
@@ -171,18 +189,7 @@ function displayTaskList() {
         
         checkbox.addEventListener("click", () => {
             
-            chrome.storage.sync.get(["user"], (result) => {
-                
-                chrome.storage.sync.set({"user": [{hp: result.user[0].hp + 5}]});
-                
-                const hpReadout = document.getElementById('hp-readout');
-                
-                hpReadout.innerText = "HP: " + (result.user[0].hp + 5)
-                
-            })
-            
-            
-            toggleTask(i); //Saves what happened a few lines above to the taskList
+            completeTask(i); //Marks task as complete
             
             displayTaskList();
             
@@ -237,11 +244,25 @@ function removeTask(index) {
     
 }
 
-function toggleTask(index) {
-    
-    taskList[index].completed = !taskList[index].completed;
-    
-    storeList();
+function completeTask(index) {
+
+    //Checks if task is already completed, if so, dont do anything to avoid letting the user get hp for free
+    if (taskList[index].completed) {
+
+        return;
+
+    } else {
+
+        chrome.storage.sync.set({"user": [{hp: user[0].hp + 5}]});
+            
+        const hpReadout = document.getElementById('hp-readout');
+            
+        hpReadout.innerText = "HP: " + (user[0].hp + 5);
+            
+        taskList[index].completed = !taskList[index].completed;
+        
+        storeList();
+    }
     
 }
 

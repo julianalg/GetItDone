@@ -19,7 +19,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
             
             // If its not running and time is -1(aka we pressed reset), set timeLeft to null so toDoApp.js can handle it in its displayTime function.
 
-            if (isRunning === false && timeLeft === -1) {
+            if (isRunning === false && time === -1) {
 
                 chrome.storage.local.set({
 
