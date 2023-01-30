@@ -78,14 +78,13 @@ window.addEventListener("DOMContentLoaded", function() {
 
     chrome.storage.sync.get(["toggle"], (result) => {
 
-        if (result.toggle) {
+        if (result.toggle !== undefined) {
 
             toggle = result.toggle
 
         } else {
 
             chrome.storage.sync.set({"toggle": true});
-
 
         }
 
@@ -306,22 +305,44 @@ function toggleDefault() {
     
     toggle = !toggle;
 
-    for (let i = 0; i < defaultBlock.length; i++) {
+    if (toggle) {
 
-        removeBlacklistURL(defaultBlock[i]);
+        for (let i = 0; i < defaultBlock.length; i++) {
 
-        blacklistURLs();
+            addBlacklistURL(defaultBlock[i]);
+
+            blacklistURLs();
+
+        }
+
+        for (let i = 0; i < defaultAllow.length; i++) {
+
+            addWhitelistURL(defaultAllow[i]);
+
+            whitelistURLs();
+
+        }
+
+    } else {
+
+        for (let i = 0; i < defaultBlock.length; i++) {
+
+            removeBlacklistURL(defaultBlock[i]);
+
+            blacklistURLs();
+
+        }
+
+        for (let i = 0; i < defaultAllow.length; i++) {
+
+            removeWhitelistURL(defaultAllow[i]);
+
+            whitelistURLs();
+
+        }
 
     }
 
-    for (let i = 0; i < defaultAllow.length; i++) {
-
-        removeWhitelistURL(defaultAllow[i]);
-
-        whitelistURLs();
-
-    }
-        
     storeVariables();
 
     displayPage();
