@@ -3,7 +3,7 @@ console.log("Loading focusGame.js");
 let user = [];
 
 const hpReadout = document.getElementById('hp-readout');
-const hpTest = document.getElementById('hp-test');
+const levelReadout = document.getElementById('level-readout')
 
 window.addEventListener("DOMContentLoaded", function() {
 
@@ -19,7 +19,7 @@ window.addEventListener("DOMContentLoaded", function() {
 
         } else {
 
-            user = [{hp: 0, level: 0}];
+            user = [{hp: 100, level: 0}];
 
             console.log(user);
 
@@ -35,7 +35,7 @@ function displayHP() {
 
     const hpReadout = document.getElementById('hp-readout');
 
-    hpReadout.innerText = user[0].hp;
+    hpReadout.innerText = "HP: " + user[0].hp;
 
 }
 
@@ -45,15 +45,6 @@ function storeHP() {
 
 }
 
-hpTest.addEventListener("click", function() {
-    
-    user[0].hp += 5;
-
-    storeHP();
-
-    displayHP();
-
-});
 
 /* Im pretty sure the below code makes it so user hp is always 0
 chrome.storage.sync.set({"user": {

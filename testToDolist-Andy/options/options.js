@@ -1,5 +1,8 @@
 console.log("Loading options.js");
 
+const resetHPButton0 = document.getElementById('resetHP0')
+const resetHPButton100 = document.getElementById('resetHP100')
+
 import { defaultBlock, defaultAllow } from "../blocking/default-blocking.js";
 
 let blacklistedURLs = [];
@@ -390,3 +393,16 @@ whitelistButton.addEventListener("click", () => {
     }
 
 });
+
+resetHPButton0.addEventListener("click", () => {
+    console.log("reset to 0")
+    chrome.storage.sync.set({"user": [{hp: 0, level: 0}]});
+    alert("Complete")
+})
+
+resetHPButton100.addEventListener("click", () => {
+    console.log("reset to 100")
+    chrome.storage.sync.set({"user": [{hp: 100, level: 0}]});
+    alert("Complete")
+
+})

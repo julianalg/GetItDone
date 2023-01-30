@@ -8,11 +8,13 @@ html {
 body {
     text-align: center;
     background-color: #f0f0f0;
+    font-family: "Work Sans", sans-serif;
 }
 
 /* header */
 .header {
     display: flex;
+    
 }
 
 .header a  {
@@ -82,5 +84,4 @@ body {
 
 .completed-tasks {
     text-decoration: line-through;
-    
 }

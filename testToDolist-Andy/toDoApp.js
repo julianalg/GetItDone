@@ -1,6 +1,6 @@
 console.log("Loading toDoApp.js");
-
 let taskList = [];
+
 
 chrome.storage.sync.get(["taskList"], (result) => {
     
@@ -60,44 +60,39 @@ function displayTaskList() {
             
             //Somehow make this code more elegant(it switches to a task detail view)
             document.querySelector('html').innerHTML = `
-                <head>
-                    <meta charset="UTF-8" /> 
-                    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <link rel="stylesheet" href="toDoTaskStyles.css" />    
+            <head>
+            <meta charset="UTF-8" /> 
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="toDoTaskStyles.css" />    
             
-                    <!--- bootstrap -->
-                     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-
-    
-                </head>
-                <body>
+            <!--- bootstrap -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
             
-                <span class="header">
-                    <h2>${taskButton.innerText}</h2>
-                    <a href="./toDoIndex.html"><button id="back" class="btn btn-outline-danger back-btn">dismiss</button></a>
-                </span>
-                <br> 
-
-                <p></p>
-                
-                <div class="due-dates">
-                    <input type="datetime-local" id="dueDate"></input>
-                    <br>
-
-                    <button class="btn btn-outline-primary addtask" id="setDueDate">Set Due Date</button>
-
-                    <input type="text" id="reminderTime"></input>
-                    <button class="btn btn-outline-primary addtask" id="setReminder">Remind me x minutes before</button>
-                </div>
+            </head>
+            <body>
             
-                
+            <span class="header">
+            <h2>${taskButton.innerText}</h2>
+            <a href="./toDoIndex.html"><button id="back" class="btn btn-outline-danger back-btn">dismiss</button></a>
+            </span>
+            <br> 
+            <p></p>
             
-                </body>
+            <div class="due-dates">
+            <input type="datetime-local" id="dueDate"></input>
+            <br>
+            <button class="btn btn-outline-primary addtask" id="setDueDate">Set Due Date</button>
+            <input type="text" id="reminderTime"></input>
+            <button class="btn btn-outline-primary addtask" id="setReminder">Remind me x minutes before</button>
+            </div>
+            
+            
+            
+            </body>
             
             `;
-
+            
             //Essentially, I'm manually replacing the html, then treating it as if I switched to a different html page when I'm really on the same one.
             //This means if, in the future, we want to make this page fancier, we will have to do all the coding below, which means its really ugly, as I said above.
             //It also means if we don't call displayList() or displayCountdown() when we load toDoIndex.html, it will theoretically be a blank page.
@@ -121,41 +116,41 @@ function displayTaskList() {
                     
                 })();
             });
-
+            
             const setReminderButton = document.getElementById("setReminder");
-
+            
             setReminderButton.addEventListener("click", () => {
-
+                
                 console.log("setReminder button clicked");
-
+                
                 task.dueDate = new Date(document.getElementById("dueDate").value);
-
+                
                 console.log(task.dueDate);
-
+                
                 let reminderTime = document.getElementById("reminderTime").value;
-
+                
                 console.log(reminderTime);
-
+                
                 let remindDate = task.dueDate - reminderTime*1000*60;
-
+                
                 console.log(remindDate);
-
+                
                 (async () => {
                     
                     const response = await chrome.runtime.sendMessage({type: "setReminder", alarmName: `Reminder for ${task.text} which is due in ${reminderTime} minutes`, remindDate: remindDate});
                     
                     console.log(response);
-
+                    
                 })();
-
+                
             });
-
+            
         });
         
         const removeButton = document.createElement("button");
         
         removeButton.innerText = "X";
-
+        
         removeButton.classList.add("btn")
         removeButton.classList.add("btn-danger")
         removeButton.classList.add("remove-button")
@@ -175,6 +170,17 @@ function displayTaskList() {
         checkbox.checked = task.completed; // If task is not completed, it will be unchecked. If task is completed, it will be checked.
         
         checkbox.addEventListener("click", () => {
+            
+            chrome.storage.sync.get(["user"], (result) => {
+                
+                chrome.storage.sync.set({"user": [{hp: result.user[0].hp + 5}]});
+                
+                const hpReadout = document.getElementById('hp-readout');
+                
+                hpReadout.innerText = "HP: " + (result.user[0].hp + 5)
+                
+            })
+            
             
             toggleTask(i); //Saves what happened a few lines above to the taskList
             
@@ -210,7 +216,7 @@ function addTask(text) {
         text: text,
         
         completed: false,
-
+        
         addedDate: new Date(),
         
         dueDate: new Date()
@@ -341,7 +347,7 @@ startButton.addEventListener("click", () => {
         time = startingMinutes * 60 + startingSeconds;
         
     }
-
+    
     countdownEl.style.color = '#7DD076'
     
     chrome.storage.local.set({
@@ -349,11 +355,11 @@ startButton.addEventListener("click", () => {
         timeLeft: time,
         
         isRunning: true,
-
+        
         backgroundColor: '#7DD076'
         
     });
-
+    
     
     
 }); 
@@ -361,13 +367,13 @@ startButton.addEventListener("click", () => {
 stopButton.addEventListener("click", () => {
     
     console.log("Stopping countdown...");
-
+    
     countdownEl.style.color = '#F4CB81'
     
     chrome.storage.local.set({
         
         isRunning: false,
-
+        
     });
     
 });

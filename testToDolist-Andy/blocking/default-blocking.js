@@ -4,4 +4,4 @@
 
 export const defaultBlock = ["youtube.com", "facebook.com", "twitter.com", "instagram.com", "whatsapp.com"]
 
-export const defaultAllow = ["google.com", "wikipedia.org", "office.com", "linkedin.com"]
+export const defaultAllow = ["google.com", "wikipedia.org", "office.com", "linkedin.com", "instructure.com"]
