@@ -76,6 +76,8 @@ bypassButton.addEventListener("click", function() {
 
     displayHP();
 
+    confirm("This will subtract 20 points from your HP. Are you sure you want to proceed?")
+
     // i need to figure out how to get the URL that the user was attempting to go to 
 
 });

@@ -20,9 +20,15 @@ window.addEventListener("DOMContentLoaded", function() {
 
             console.log(user);
 
+            character.src = user[0].character
+
         } else {
 
-            user = [{hp: 100, level: 0, character: characterSprites[Math.floor(Math.random() * characterSprites.length)]}];
+            const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
+    
+            user = [{hp: 100, level: 0, character: randomCharacter}];
+
+            character.src = user[0].character
 
             console.log(user);
 
@@ -44,11 +50,11 @@ function displayHP() {
 
     levelReadout.innerText = "Level: " + user[0].level
 
-    character.setAttribute("src", user[0].character)
-
 }
 
 function storeHP() {
+
+    console.log(user[0].character)
 
     chrome.storage.sync.set({"user": [{hp: user[0].hp, level: user[0].level, character: user[0].character}]});
 

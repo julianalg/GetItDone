@@ -20,21 +20,27 @@ chrome.storage.sync.get(["taskList"], (result) => {
 });
 
 chrome.storage.sync.get(["user"], (result) => {
-
+    
     if (result.user) {
-
+        
         user = result.user;
-
+        
         console.log(user);
 
+        
+        
     } else {
-
-        user = [{hp: 100, level: 0, character}];
-
+        
+        const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
+        
+        character.src = randomCharacter
+        
+        user = [{hp: 100, level: 0, character: randomCharacter}];
+        
         console.log(user);
-
+        
     }
-
+    
 });
 
 //Above code to load variables from storage if possible.
@@ -224,13 +230,13 @@ function addTask(text) {
         
         completed: false,
         
-        addedDate: new Date(),
-        
-        dueDate: new Date()
+        addedDate: new Date()
         
     });
     
     storeList();
+    
+    console.log(user)
     
 }
 
@@ -245,20 +251,20 @@ function removeTask(index) {
 }
 
 function completeTask(index) {
-
+    
     //Checks if task is already completed, if so, dont do anything to avoid letting the user get hp for free
     if (taskList[index].completed) {
-
+        
         return;
-
+        
     } else {
-
-        chrome.storage.sync.set({"user": [{hp: user[0].hp + 5}]});
-            
+        
+        chrome.storage.sync.set({"user": [{hp: user[0].hp + 5, level: user[0].level, character: user[0].character}]});
+        
         const hpReadout = document.getElementById('hp-readout');
-            
+        
         hpReadout.innerText = "HP: " + (user[0].hp + 5);
-            
+        
         taskList[index].completed = !taskList[index].completed;
         
         storeList();
@@ -355,33 +361,33 @@ startButton.addEventListener("click", () => {
     
     // If user does not enter a number, it will default to 25 minutes
     startingMinutes = Number(document.getElementById("StartingMinutes").value);
-            
+    
     startingSeconds = Number(document.getElementById("StartingSeconds").value);
-            
+    
     time = startingMinutes * 60 + startingSeconds;
-            
+    
     if (time <= 0) {
-                
+        
         startingMinutes = 25;
-                
+        
         startingSeconds = 0;
-                
+        
         time = startingMinutes * 60 + startingSeconds;
-                
+        
     }
-            
+    
     countdownEl.style.color = '#7DD076'
-            
+    
     chrome.storage.local.set({
-                
+        
         timeLeft: time,
-                
+        
         isRunning: true,
-                
+        
         backgroundColor: '#7DD076'
-                
+        
     });
-      
+    
 }); 
 
 stopButton.addEventListener("click", () => {
@@ -415,13 +421,13 @@ resetButton.addEventListener("click", () => {
 }); 
 
 resumeButton.addEventListener("click", () => {
-
+    
     console.log("Pausing Countdown...") ;
     
     chrome.storage.local.set({
-
+        
         isRunning: true,
-
+        
     });
-
+    
 });
