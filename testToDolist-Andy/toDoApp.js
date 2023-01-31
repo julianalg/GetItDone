@@ -29,7 +29,7 @@ chrome.storage.sync.get(["user"], (result) => {
 
     } else {
 
-        user = [{hp: 0, level: 0}];
+        user = [{hp: 100, level: 0, character}];
 
         console.log(user);
 

@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", function() {
 
         } else {
 
-            user = [{hp: 0, level: 0}];
+            user = [{hp: 0, level: 0, character: "characters/sprite1.png"}];
 
             console.log(user);
 

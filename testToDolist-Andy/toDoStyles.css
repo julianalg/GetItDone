@@ -14,12 +14,26 @@ body {
 /* header */
 .header {
     display: flex;
-    
+    color: #f0f0f0;
+    background-color: #494953;
+    padding-top: 10px;
 }
 
 .header a  {
     margin-left: auto; 
     height: 40px;
+}
+
+.readout {
+    display: inline-block;
+}
+
+#hp-readout {
+    color: #FF5656;
+}
+
+#level-readout {
+    color: #6A7EFC;
 }
 
 .header h1 {
