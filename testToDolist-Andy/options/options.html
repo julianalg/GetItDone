@@ -14,6 +14,10 @@
 
         <a href="../toDoIndex.html"><button id="back" class="btn btn-outline-danger back-btn">Back</button></a>
 
+        <hr>
+
+        <h2>Blocking</h2>
+        
         <input type="checkbox" id="toggleEl">Toggle Defaults</button>
 
         <div class="blacklist">
@@ -38,12 +42,15 @@
             <div id="whitelistedSites"></div>
         </div>
        
+        <hr>
+
+        <h2>Diagnostics</h2>
+
+        <strong>These options reset all progress. If you are testing this extension, please do not click these buttons unless instructed </strong>
 
         <div class="diagnostics">
-            <strong>for developer use ONLY</strong>
-            <br>
-            <button id="resetHP0">Reset HP to 0</button>
-            <button id="resetHP100">Reset HP to 100 (user default)</button>
+            <button class="btn btn-danger" id="resetHP0">Reset HP to 0 & Reset Character</button>
+            <button class="btn btn-danger" id="resetHP100">Reset HP to 100 & Reset Character (user default)</button>
 
         </div>
        

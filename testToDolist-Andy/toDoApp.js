@@ -27,7 +27,7 @@ chrome.storage.sync.get(["user"], (result) => {
         
         console.log(user);
 
-        
+
         
     } else {
         
@@ -198,6 +198,13 @@ function displayTaskList() {
             completeTask(i); //Marks task as complete
             
             displayTaskList();
+
+            chrome.storage.sync.set({"user": [{hp: user[0].hp + 5, level: user[0].level, character: user[0].character}]});
+        
+            const hpReadout = document.getElementById('hp-readout');
+            
+            hpReadout.innerText = "HP: " + (user[0].hp + 5);
+        
             
         });
         
@@ -258,13 +265,7 @@ function completeTask(index) {
         return;
         
     } else {
-        
-        chrome.storage.sync.set({"user": [{hp: user[0].hp + 5, level: user[0].level, character: user[0].character}]});
-        
-        const hpReadout = document.getElementById('hp-readout');
-        
-        hpReadout.innerText = "HP: " + (user[0].hp + 5);
-        
+                
         taskList[index].completed = !taskList[index].completed;
         
         storeList();
@@ -285,6 +286,8 @@ function storeList() {
         console.log(`taskList has been stored as: ${result}`);
         
     }
+
+
     
 }
 

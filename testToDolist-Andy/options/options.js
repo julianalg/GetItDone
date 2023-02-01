@@ -471,7 +471,13 @@ function displayPage() {
 
         const removeButton = document.createElement("button");
 
-        removeButton.innerText = "Remove";
+        removeButton.innerText = "X";
+
+        // removeButton.classList.add("btn")
+        // removeButton.classList.add("btn-danger")
+        // removeButton.classList.add("remove-button")
+
+
 
         removeButton.addEventListener("click", () => {
 
@@ -587,13 +593,25 @@ whitelistButton.addEventListener("click", () => {
 
 resetHPButton0.addEventListener("click", () => {
     console.log("reset to 0")
+    const newCharacter = generateCharacter()
+    chrome.storage.sync.set({"user": [{hp: 100, level: 0, character: newCharacter}]});
     chrome.storage.sync.set({"user": [{hp: 0, level: 0}]});
     alert("Complete")
 })
 
 resetHPButton100.addEventListener("click", () => {
     console.log("reset to 100")
-    chrome.storage.sync.set({"user": [{hp: 100, level: 0}]});
+    const newCharacter = generateCharacter()
+    chrome.storage.sync.set({"user": [{hp: 100, level: 0, character: newCharacter}]});
     alert("Complete")
 
 })
+
+const characterSprites = ["characters/sprite1.png", "characters/sprite2.png", "characters/sprite3.png", "characters/sprite4.png", "characters/sprite5.png"]
+
+
+function generateCharacter() {
+    const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
+
+    return randomCharacter
+}
