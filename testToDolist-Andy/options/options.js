@@ -473,9 +473,10 @@ function displayPage() {
 
         removeButton.innerText = "X";
 
-        // removeButton.classList.add("btn")
-        // removeButton.classList.add("btn-danger")
-        // removeButton.classList.add("remove-button")
+        // adds bootstrap and style classes
+        removeButton.classList.add("btn")
+        removeButton.classList.add("btn-danger")
+        removeButton.classList.add("remove-button")
 
 
 
@@ -510,7 +511,13 @@ function displayPage() {
 
         const removeButton = document.createElement("button");
 
-        removeButton.innerText = "Remove";
+        removeButton.innerText = "X";
+
+        // adds bootstrap and style classes
+        removeButton.classList.add("btn")
+        removeButton.classList.add("btn-danger")
+        removeButton.classList.add("remove-button")
+
 
         removeButton.addEventListener("click", () => {
 

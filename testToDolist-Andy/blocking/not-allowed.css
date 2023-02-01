@@ -26,3 +26,7 @@ main {
 .strong {
     font-weight: 900;
 }
+
+.character {
+    height: 100px;
+}
