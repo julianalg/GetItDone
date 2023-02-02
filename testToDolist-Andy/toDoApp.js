@@ -5,7 +5,7 @@ user = [{hp: 100, level: 0, character: "../characters/sprite1.png"}];
 characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
 
 window.addEventListener("DOMContentLoaded", function() {
-
+    
     chrome.storage.local.get(["taskList"], (result) => {
         
         if (result.taskList) {
@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded", function() {
         displayTaskList();
         
     });
-
+    
     chrome.storage.local.get(["user"], (result) => {
         
         if (result.user) {
@@ -38,7 +38,7 @@ window.addEventListener("DOMContentLoaded", function() {
             character.src = randomCharacter
             
             user = [{hp: 100, level: 0, character: randomCharacter}];
-
+            
             chrome.storage.local.set({"user": user});
             
             console.log(user);
@@ -46,7 +46,7 @@ window.addEventListener("DOMContentLoaded", function() {
         }
         
     });
-
+    
 });
 
 //Above code to load variables from storage if possible.
@@ -204,10 +204,11 @@ function displayTaskList() {
             completeTask(i); //Marks task as complete
             
             displayTaskList();
-
+            
             user[0].level += 1;
-
-            chrome.storage.local.set({"user": user});
+            
+            
+            
             
         });
         
@@ -261,6 +262,20 @@ function removeTask(index) {
 }
 
 function completeTask(index) {
+
+    chrome.notifications.create('HP bonus', {
+        type: 'basic',
+        iconUrl: './images/icon-128.png',
+        title: 'You feel yourself becoming revitalized...',
+        message: `Your HP is now ${user[0].hp} and your level is now ${user[0].level}`,
+        priority: 2
+    });
+    
+    chrome.storage.local.set({"user": [{hp: user[0].hp + 5, level: user[0].level, character: user[0].character}]});
+
+    if (user[0].hp % 10) {
+        chrome.storage.local.set({"user": [{hp: user[0].hp + 5, level: user[0].level + 1, character: user[0].character}]});
+    }
     
     //Checks if task is already completed, if so, dont do anything to avoid letting the user get hp for free
     if (taskList[index].completed) {
@@ -268,7 +283,7 @@ function completeTask(index) {
         return;
         
     } else {
-                
+        
         taskList[index].completed = !taskList[index].completed;
         
         storeList();
@@ -289,7 +304,7 @@ function storeList() {
         console.log(`taskList has been stored as: ${result}`);
         
     }
-
+    
 }
 
 const addTaskButton = document.getElementById("addTask"); 
@@ -356,23 +371,23 @@ function displayCountdown() {
 }
 
 function displayChar() {
-
+    
     const hpReadout = document.getElementById("hp-readout");
-
+    
     const lvlReadout = document.getElementById("level-readout");
-
+    
     const charDisplay = document.getElementById("character");
-
+    
     chrome.storage.local.get(["user"], (result) => {
-
+        
         hpReadout.textContent = "HP: " + result.user[0].hp;
-
+        
         lvlReadout.textContent = "Level: " + result.user[0].level;
-
+        
         charDisplay.src = result.user[0].character;
-
+        
     });
-
+    
 }
 
 displayChar();
@@ -415,7 +430,7 @@ startButton.addEventListener("click", () => {
         backgroundColor: '#7DD076'
         
     });
-
+    
     chrome.notifications.create('test', {
         type: 'basic',
         iconUrl: './images/icon-128.png',
@@ -423,7 +438,7 @@ startButton.addEventListener("click", () => {
         message: 'You feel incredibly focused...',
         priority: 2
     });
-
+    
     
 }); 
 

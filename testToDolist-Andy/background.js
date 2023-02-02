@@ -80,6 +80,16 @@ chrome.alarms.onAlarm.addListener((alarm) => {
                     priority: 2
                 });
 
+                console.log(user)
+
+                console.log("Timer complete")
+
+                chrome.storage.local.get(["user"], (result) => {
+                    chrome.storage.local.set({"user": [{hp: result.user[0].hp + 10, level: result.user[0].level + 1, character: result.user[0].character}]})
+                })
+
+                console.log(user)
+
                 return;
 
             }
@@ -143,6 +153,8 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
+
+
 chrome.storage.onChanged.addListener((changes)=> {
 
     if (changes.user && changes.user.newValue[0].hp <= 0) {
@@ -165,30 +177,30 @@ chrome.storage.onChanged.addListener((changes)=> {
 
    }
 
-   if (changes.user && changes.user.newValue[0].level % 2 == 0 && changes.user.newValue[0].level != 0) {
+//    if (changes.user && changes.user.newValue[0].level % 2 == 0 && changes.user.newValue[0].level != 0) {
 
-        console.log(changes);
+//         console.log(changes);
 
-        chrome.notifications.create('HP bonus', {
-            type: 'basic',
-            iconUrl: './images/icon-128.png',
-            title: 'You feel yourself becoming revitalized...',
-            message: '',
-            priority: 2
-        });
+//         chrome.notifications.create('HP bonus', {
+//             type: 'basic',
+//             iconUrl: './images/icon-128.png',
+//             title: 'You feel yourself becoming revitalized...',
+//             message: '',
+//             priority: 2
+//         });
 
-        chrome.storage.local.set({"user": [{hp: changes.user.newValue[0].hp + 5, level: changes.user.newValue[0].level, character: user[0].character}]});
+//         chrome.storage.local.set({"user": [{hp: changes.user.newValue[0].hp + 5, level: changes.user.newValue[0].level, character: user[0].character}]});
 
-   }
+//    }
 
-   chrome.storage.local.get(["isRunning"], (result) => {
+//    chrome.storage.local.get(["isRunning"], (result) => {
 
-        if (result.isRunning) {
+//         if (result.isRunning) {
 
-            chrome.storage.local.set({"user": [{hp: user[0].hp + 5, level: changes.user.newValue[0].level, character: user[0].character}]});
+//             chrome.storage.local.set({"user": [{hp: user[0].hp + 5, level: changes.user.newValue[0].level, character: user[0].character}]});
 
-        }
+//         }
 
-   });
+//    });
 
 });
