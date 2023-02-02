@@ -10,10 +10,11 @@ let whitelistedURLs = [];
 let allURLs = [];
 let totalURLIndex = 0; // variable to store the id of each rule rather than generating a random number to avoid duplicate ids
 let toggle = true; // false = do not load defaults, true = load defaults
+
 window.addEventListener("DOMContentLoaded", function() {
 
-    chrome.storage.sync.get(["allURLs"], (result) => {
-        
+    chrome.storage.local.get(["allURLs"], (result) => {
+
         if (result.allURLs) {
             
             allURLs = result.allURLs;
@@ -22,13 +23,13 @@ window.addEventListener("DOMContentLoaded", function() {
         
         else {
             
-            chrome.storage.sync.set({"allURLs": []});
+            chrome.storage.local.set({"allURLs": []});
         
         }
 
     });
 
-    chrome.storage.sync.get(["blacklistedURLs"], (result) => {
+    chrome.storage.local.get(["blacklistedURLs"], (result) => {
         
         if (result.blacklistedURLs) {
             
@@ -38,13 +39,13 @@ window.addEventListener("DOMContentLoaded", function() {
         
         else {
             
-            chrome.storage.sync.set({"blacklistedURLs": []});
+            chrome.storage.local.set({"blacklistedURLs": []});
         
         }
 
     });
 
-    chrome.storage.sync.get(["whitelistedURLs"], (result) => {
+    chrome.storage.local.get(["whitelistedURLs"], (result) => {
         
         if (result.whitelistedURLs) {
             
@@ -54,13 +55,13 @@ window.addEventListener("DOMContentLoaded", function() {
         
         else {
             
-            chrome.storage.sync.set({"whitelistedURLs": []});
+            chrome.storage.local.set({"whitelistedURLs": []});
         
         }
 
     });
 
-    chrome.storage.sync.get(["totalURLIndex"], (result) => {
+    chrome.storage.local.get(["totalURLIndex"], (result) => {
         
         if (result.totalURLIndex) {
             
@@ -70,13 +71,13 @@ window.addEventListener("DOMContentLoaded", function() {
         
         else {
             
-            chrome.storage.sync.set({"totalURLIndex": 0});
+            chrome.storage.local.set({"totalURLIndex": 0});
         
         }
 
     });
 
-    chrome.storage.sync.get(["toggle"], (result) => {
+    chrome.storage.local.get(["toggle"], (result) => {
 
         if (result.toggle !== undefined) {
 
@@ -84,7 +85,7 @@ window.addEventListener("DOMContentLoaded", function() {
 
         } else {
 
-            chrome.storage.sync.set({"toggle": true});
+            chrome.storage.local.set({"toggle": true});
 
         }
 
@@ -351,15 +352,15 @@ function toggleDefault() {
 
 function storeVariables() {
 
-    chrome.storage.sync.set({"allURLs": allURLs});
+    chrome.storage.local.set({"allURLs": allURLs});
 
-    chrome.storage.sync.set({"blacklistedURLs": blacklistedURLs});
+    chrome.storage.local.set({"blacklistedURLs": blacklistedURLs});
 
-    chrome.storage.sync.set({"whitelistedURLs": whitelistedURLs});
+    chrome.storage.local.set({"whitelistedURLs": whitelistedURLs});
 
-    chrome.storage.sync.set({"totalURLIndex": totalURLIndex});
+    chrome.storage.local.set({"totalURLIndex": totalURLIndex});
 
-    chrome.storage.sync.set({"toggle": toggle});
+    chrome.storage.local.set({"toggle": toggle});
 
 }
 
@@ -599,26 +600,34 @@ whitelistButton.addEventListener("click", () => {
 });
 
 resetHPButton0.addEventListener("click", () => {
-    console.log("reset to 0")
-    const newCharacter = generateCharacter()
-    chrome.storage.sync.set({"user": [{hp: 100, level: 0, character: newCharacter}]});
-    chrome.storage.sync.set({"user": [{hp: 0, level: 0}]});
-    alert("Complete")
-})
+
+    console.log("reset to 0");
+
+    const newCharacter = generateCharacter();
+
+    chrome.storage.local.set({"user": [{hp: 0, level: 0, character: newCharacter}]});
+
+    alert("Complete");
+
+});
 
 resetHPButton100.addEventListener("click", () => {
-    console.log("reset to 100")
-    const newCharacter = generateCharacter()
-    chrome.storage.sync.set({"user": [{hp: 100, level: 0, character: newCharacter}]});
-    alert("Complete")
 
-})
+    console.log("reset to 100");
 
-const characterSprites = ["characters/sprite1.png", "characters/sprite2.png", "characters/sprite3.png", "characters/sprite4.png", "characters/sprite5.png"]
+    const newCharacter = generateCharacter();
 
+    chrome.storage.local.set({"user": [{hp: 100, level: 0, character: newCharacter}]});
+
+    alert("Complete");
+
+});
+
+const characterSprites = ["characters/sprite1.png", "characters/sprite2.png", "characters/sprite3.png", "characters/sprite4.png", "characters/sprite5.png"];
 
 function generateCharacter() {
+
     const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
 
-    return randomCharacter
+    return randomCharacter;
 }

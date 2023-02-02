@@ -1,8 +1,9 @@
 console.log("Loading toDoApp.js");
 
 let taskList = [];
+characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
 
-chrome.storage.sync.get(["taskList"], (result) => {
+chrome.storage.local.get(["taskList"], (result) => {
     
     if (result.taskList) {
         
@@ -11,7 +12,7 @@ chrome.storage.sync.get(["taskList"], (result) => {
     
     else {
         
-        chrome.storage.sync.set({"taskList": []});
+        chrome.storage.local.set({"taskList": []});
         
     }
     
@@ -19,7 +20,7 @@ chrome.storage.sync.get(["taskList"], (result) => {
     
 });
 
-chrome.storage.sync.get(["user"], (result) => {
+chrome.storage.local.get(["user"], (result) => {
     
     if (result.user) {
         
@@ -199,7 +200,7 @@ function displayTaskList() {
             
             displayTaskList();
 
-            chrome.storage.sync.set({"user": [{hp: user[0].hp + 5, level: user[0].level, character: user[0].character}]});
+            chrome.storage.local.set({"user": [{hp: user[0].hp + 5, level: user[0].level, character: user[0].character}]});
         
             const hpReadout = document.getElementById('hp-readout');
             
@@ -275,7 +276,7 @@ function completeTask(index) {
 
 function storeList() {
     
-    chrome.storage.sync.set({"taskList": taskList});
+    chrome.storage.local.set({"taskList": taskList});
     
     const result = [];
     

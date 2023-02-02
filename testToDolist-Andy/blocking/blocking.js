@@ -4,14 +4,13 @@ let user = [];
 const workButton = document.getElementById("backToWork");
 const bypassButton = document.getElementById("bypass");
 
-const characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"]
-
+const characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
 
 window.addEventListener("DOMContentLoaded", function() {
     
     console.log("Event listener triggered");
     
-    chrome.storage.sync.get(["user"], (result) => {
+    chrome.storage.local.get(["user"], (result) => {
         
         if (result.user) {
             
@@ -66,7 +65,7 @@ function displayHP() {
 
 function storeHP() {
     
-    chrome.storage.sync.set({"user": [{hp: user[0].hp, level: user[0].level, character: user[0].character}]});
+    chrome.storage.local.set({"user": [{hp: user[0].hp, level: user[0].level, character: user[0].character}]});
     
 }
 
@@ -102,7 +101,7 @@ bypassButton.addEventListener("click", function() {
 
 
 
-// chrome.storage.sync.get(["user"], (result) => {
+// chrome.storage.local.get(["user"], (result) => {
 
 //     if (result.user) {
 
@@ -111,7 +110,7 @@ bypassButton.addEventListener("click", function() {
 
 //     else {
 
-//         chrome.storage.sync.set({"user": {hp: 0, level: 0}});
+//         chrome.storage.local.set({"user": {hp: 0, level: 0}});
 
 //     }
 
