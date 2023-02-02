@@ -2,15 +2,13 @@ console.log("Loading focusGame.js");
 
 let user = [];
 
-const characterSprites = ["characters/sprite1.png", "characters/sprite2.png", "characters/sprite3.png", "characters/sprite4.png", "characters/sprite5.png"]
+const characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"]
 
 const character = document.getElementById('character');
 const hpReadout = document.getElementById('hp-readout');
 const levelReadout = document.getElementById('level-readout');
 
 window.addEventListener("DOMContentLoaded", function() {
-
-    console.log("event listener triggered");
 
     chrome.storage.local.get(["user"], (result) => {
 
@@ -39,8 +37,10 @@ window.addEventListener("DOMContentLoaded", function() {
     });
 
     chrome.storage.local.get([], (result) => {
-        console.log(result)
-    })
+
+        console.log(result);
+
+    });
 
 });
 
@@ -52,7 +52,7 @@ function displayHP() {
 
 }
 
-function storeHP() {
+function storeUser() {
 
     console.log(user[0].character)
 

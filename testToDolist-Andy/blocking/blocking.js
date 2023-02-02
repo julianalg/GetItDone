@@ -18,13 +18,11 @@ window.addEventListener("DOMContentLoaded", function() {
             
             console.log(user);
 
-            user[0].character = "../" + user[0].character
-            
-            console.log("using pre-existing user array")
+            console.log("using pre-existing user array");
             
         } else {
             
-            console.log("creating new user array")
+            console.log("creating new user array");
             
             const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
                         
@@ -63,7 +61,7 @@ function displayHP() {
     
 }
 
-function storeHP() {
+function storeUser() {
     
     chrome.storage.local.set({"user": [{hp: user[0].hp, level: user[0].level, character: user[0].character}]});
     
@@ -73,7 +71,7 @@ function removeHP(hp) {
     
     user[0].hp -= hp; 
     
-    storeHP();
+    storeUser();
     
 }
 
@@ -85,15 +83,13 @@ workButton.addEventListener("click", function() {
 
 bypassButton.addEventListener("click", function() {
     
-    console.log(user[0].hp);
-    
+    confirm("This will subtract 20 points from your HP. Are you sure you want to proceed?");
+
     removeHP(20);
-    
-    console.log(user[0].hp);
-    
+
+    storeUser();
+
     displayHP();
-    
-    confirm("This will subtract 20 points from your HP. Are you sure you want to proceed?")
     
     // i need to figure out how to get the URL that the user was attempting to go to 
     

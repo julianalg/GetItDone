@@ -1,5 +1,34 @@
 console.log("Loading background.js");
 
+characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
+let user;
+
+chrome.storage.local.get(["user"], (result) => {
+        
+    if (result.user) {
+        
+        user = result.user;
+        
+        console.log(user);
+        
+        console.log("using pre-existing user array");
+        
+    } else {
+        
+        console.log("creating new user array");
+        
+        const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
+                    
+        user = [{hp: 100, level: 0, character: randomCharacter}];
+        
+        console.log(user);
+
+        chrome.storage.local.set({"user": user})
+
+    }
+
+});
+
 chrome.alarms.create("timer",{
 
     periodInMinutes: 1 / 60
@@ -15,7 +44,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
             const time = result.timeLeft ?? -1; // If timeLeft hasn't been created/returns null, set to -1 to reset timer.
 
-            const isRunning = result.isRunning ?? true; // If isRunning doesn't exist/returns null, set to true\
+            const isRunning = result.isRunning ?? true; // If isRunning doesn't exist/returns null, set to true
             
             // If its not running and time is -1(aka we pressed reset), set timeLeft to null so toDoApp.js can handle it in its displayTime function.
 
@@ -75,7 +104,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
         
     } else {
 
-        chrome.notifications.create('test', {
+        chrome.notifications.create('Task due!', {
             type: 'basic',
             iconUrl: './images/icon-128.png',
             title: 'Task due!',
@@ -90,6 +119,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 });
 
 chrome.runtime.onMessage.addListener(
+
     function(request, sender, sendResponse) {
 
         console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
@@ -112,3 +142,53 @@ chrome.runtime.onMessage.addListener(
 
     }
 );
+
+chrome.storage.onChanged.addListener((changes)=> {
+
+    if (changes.user && changes.user.newValue[0].hp <= 0) {
+
+        console.log("Game Over!");
+
+        chrome.notifications.create('Death', {
+            type: 'basic',
+            iconUrl: './images/icon-128.png',
+            title: 'Game over :(',
+            message: 'All character data will be reset',
+            priority: 2
+        });
+
+        const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
+                        
+        user = [{hp: 100, level: 0, character: randomCharacter}];
+
+        chrome.storage.local.set({"user": user});
+
+   }
+
+   if (changes.user && changes.user.newValue[0].level % 2 == 0 && changes.user.newValue[0].level != 0) {
+
+        console.log(changes);
+
+        chrome.notifications.create('HP bonus', {
+            type: 'basic',
+            iconUrl: './images/icon-128.png',
+            title: 'You feel yourself becoming revitalized...',
+            message: '',
+            priority: 2
+        });
+
+        chrome.storage.local.set({"user": [{hp: changes.user.newValue[0].hp + 5, level: changes.user.newValue[0].level, character: user[0].character}]});
+
+   }
+
+   chrome.storage.local.get(["isRunning"], (result) => {
+
+        if (result.isRunning) {
+
+            chrome.storage.local.set({"user": [{hp: user[0].hp + 5, level: changes.user.newValue[0].level, character: user[0].character}]});
+
+        }
+
+   });
+
+});

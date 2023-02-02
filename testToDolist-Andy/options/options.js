@@ -1,7 +1,7 @@
 console.log("Loading options.js");
 
-const resetHPButton0 = document.getElementById('resetHP0')
-const resetHPButton100 = document.getElementById('resetHP100')
+const resetHPButton0 = document.getElementById('resetHP0');
+const resetHPButton100 = document.getElementById('resetHP100');
 
 import { defaultBlock, defaultAllow } from "../blocking/default-blocking.js";
 
@@ -10,6 +10,7 @@ let whitelistedURLs = [];
 let allURLs = [];
 let totalURLIndex = 0; // variable to store the id of each rule rather than generating a random number to avoid duplicate ids
 let toggle = true; // false = do not load defaults, true = load defaults
+let user;
 
 window.addEventListener("DOMContentLoaded", function() {
 
@@ -75,6 +76,30 @@ window.addEventListener("DOMContentLoaded", function() {
         
         }
 
+    });
+
+    chrome.storage.local.get(["user"], (result) => {
+        
+        if (result.user) {
+            
+            user = result.user;
+            
+            console.log(user);
+
+            user[0].character = "../" + user[0].character;
+            
+            console.log("using pre-existing user array");
+            
+        } else {
+            
+            console.log("creating new user array");
+            
+            const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
+                        
+            user = [{hp: 100, level: 0, character: randomCharacter}];
+            
+            console.log(user);
+        }
     });
 
     chrome.storage.local.get(["toggle"], (result) => {
@@ -306,44 +331,6 @@ function toggleDefault() {
     
     toggle = !toggle;
 
-    if (toggle) {
-
-        for (let i = 0; i < defaultBlock.length; i++) {
-
-            addBlacklistURL(defaultBlock[i]);
-
-            blacklistURLs();
-
-        }
-
-        for (let i = 0; i < defaultAllow.length; i++) {
-
-            addWhitelistURL(defaultAllow[i]);
-
-            whitelistURLs();
-
-        }
-
-    } else {
-
-        for (let i = 0; i < defaultBlock.length; i++) {
-
-            removeBlacklistURL(defaultBlock[i]);
-
-            blacklistURLs();
-
-        }
-
-        for (let i = 0; i < defaultAllow.length; i++) {
-
-            removeWhitelistURL(defaultAllow[i]);
-
-            whitelistURLs();
-
-        }
-
-    }
-
     storeVariables();
 
     displayPage();
@@ -361,6 +348,8 @@ function storeVariables() {
     chrome.storage.local.set({"totalURLIndex": totalURLIndex});
 
     chrome.storage.local.set({"toggle": toggle});
+
+    chrome.storage.local.set({"user": user})
 
 }
 
@@ -479,11 +468,27 @@ function displayPage() {
         removeButton.classList.add("btn-danger")
         removeButton.classList.add("remove-button")
 
-
-
         removeButton.addEventListener("click", () => {
 
-            removeBlacklistURL(blacklistedURL.condition.urlFilter);
+            chrome.storage.local.get(["isRunning"], (result) => {
+
+                if (result.isRunning) {
+        
+                    alert("Cannot remove from blacklist in Focus Mode.");
+        
+                    return;
+        
+                }
+                 
+                if (confirm("This will subtract 5 points from your HP. Are you sure you want to proceed?") && result.isRunning == false) {
+        
+                    chrome.storage.local.set({"user": [{hp: user[0].hp-5, level: user[0].level, character: user[0].character}]});
+
+                    removeBlacklistURL(blacklistedURL.condition.urlFilter); 
+
+                }
+        
+            });
 
             displayPage();
         
@@ -518,7 +523,6 @@ function displayPage() {
         removeButton.classList.add("btn")
         removeButton.classList.add("btn-danger")
         removeButton.classList.add("remove-button")
-
 
         removeButton.addEventListener("click", () => {
 
@@ -571,7 +575,7 @@ blacklistButton.addEventListener("click", () => {
 
         displayPage();
 
-        console.log("Urls being blacklisted...");
+        console.log("URLs being blacklisted...");
         
     }
 
@@ -579,23 +583,39 @@ blacklistButton.addEventListener("click", () => {
 
 whitelistButton.addEventListener("click", () => {
 
-    const whitelistedURL = document.getElementById("whitelistedURL");
+    chrome.storage.local.get(["isRunning"], (result) => {
 
-    const url = whitelistedURL.value.trim(); //Remove whitespace
+        if (result.isRunning) {
 
-    if (url !== "") {
+            alert("Cannot add to whitelist in Focus Mode.");
 
-        addWhitelistURL(whitelistedURL.value);
-        
-        whitelistedURL.value = '';
+            return;
 
-        whitelistURLs();
+        }
+         
+        if (confirm("This will subtract 5 points from your HP. Are you sure you want to proceed?") && result.isRunning == false) {
 
-        displayPage();
+            const whitelistedURL = document.getElementById("whitelistedURL");
 
-        console.log("Urls being whitelisted...");
+            const url = whitelistedURL.value.trim(); //Remove whitespace
 
-    }
+            if (url !== "") {
+
+                addWhitelistURL(whitelistedURL.value);
+                
+                whitelistedURL.value = '';
+
+                whitelistURLs();
+
+                displayPage();
+
+                console.log("Urls being whitelisted...");
+
+            }
+
+        }
+
+    });
 
 });
 

@@ -1,47 +1,52 @@
 console.log("Loading toDoApp.js");
 
 let taskList = [];
+user = [{hp: 100, level: 0, character: "../characters/sprite1.png"}];
 characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
 
-chrome.storage.local.get(["taskList"], (result) => {
-    
-    if (result.taskList) {
-        
-        taskList = result.taskList;
-    } 
-    
-    else {
-        
-        chrome.storage.local.set({"taskList": []});
-        
-    }
-    
-    displayTaskList();
-    
-});
+window.addEventListener("DOMContentLoaded", function() {
 
-chrome.storage.local.get(["user"], (result) => {
-    
-    if (result.user) {
+    chrome.storage.local.get(["taskList"], (result) => {
         
-        user = result.user;
+        if (result.taskList) {
+            
+            taskList = result.taskList;
+        } 
         
-        console.log(user);
+        else {
+            
+            chrome.storage.local.set({"taskList": []});
+            
+        }
+        
+        displayTaskList();
+        
+    });
 
+    chrome.storage.local.get(["user"], (result) => {
+        
+        if (result.user) {
+            
+            user = result.user;
+            
+            console.log(user);
+            
+        } else {
+            
+            const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
+            
+            character.src = randomCharacter
+            
+            user = [{hp: 100, level: 0, character: randomCharacter}];
 
+            chrome.storage.local.set({"user": user});
+            
+            console.log(user);
+            
+        }
         
-    } else {
-        
-        const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
-        
-        character.src = randomCharacter
-        
-        user = [{hp: 100, level: 0, character: randomCharacter}];
-        
-        console.log(user);
-        
-    }
-    
+    });
+
 });
 
 //Above code to load variables from storage if possible.
@@ -200,12 +205,9 @@ function displayTaskList() {
             
             displayTaskList();
 
-            chrome.storage.local.set({"user": [{hp: user[0].hp + 5, level: user[0].level, character: user[0].character}]});
-        
-            const hpReadout = document.getElementById('hp-readout');
-            
-            hpReadout.innerText = "HP: " + (user[0].hp + 5);
-        
+            user[0].level += 1;
+
+            chrome.storage.local.set({"user": user});
             
         });
         
@@ -288,8 +290,6 @@ function storeList() {
         
     }
 
-
-    
 }
 
 const addTaskButton = document.getElementById("addTask"); 
@@ -355,6 +355,30 @@ function displayCountdown() {
     
 }
 
+function displayChar() {
+
+    const hpReadout = document.getElementById("hp-readout");
+
+    const lvlReadout = document.getElementById("level-readout");
+
+    const charDisplay = document.getElementById("character");
+
+    chrome.storage.local.get(["user"], (result) => {
+
+        hpReadout.textContent = "HP: " + result.user[0].hp;
+
+        lvlReadout.textContent = "Level: " + result.user[0].level;
+
+        charDisplay.src = result.user[0].character;
+
+    });
+
+}
+
+displayChar();
+
+setInterval(displayChar, 1000);
+
 displayCountdown();
 
 setInterval(displayCountdown, 1000);
@@ -391,6 +415,15 @@ startButton.addEventListener("click", () => {
         backgroundColor: '#7DD076'
         
     });
+
+    chrome.notifications.create('test', {
+        type: 'basic',
+        iconUrl: './images/icon-128.png',
+        title: 'Focus Mode started!',
+        message: 'You feel incredibly focused...',
+        priority: 2
+    });
+
     
 }); 
 
