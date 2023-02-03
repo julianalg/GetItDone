@@ -262,20 +262,6 @@ function removeTask(index) {
 }
 
 function completeTask(index) {
-
-    chrome.notifications.create('HP bonus', {
-        type: 'basic',
-        iconUrl: './images/icon-128.png',
-        title: 'You feel yourself becoming revitalized...',
-        message: `Your HP is now ${user[0].hp} and your level is now ${user[0].level}`,
-        priority: 2
-    });
-    
-    chrome.storage.local.set({"user": [{hp: user[0].hp + 5, level: user[0].level, character: user[0].character}]});
-
-    if (user[0].hp % 10) {
-        chrome.storage.local.set({"user": [{hp: user[0].hp + 5, level: user[0].level + 1, character: user[0].character}]});
-    }
     
     //Checks if task is already completed, if so, dont do anything to avoid letting the user get hp for free
     if (taskList[index].completed) {
@@ -285,6 +271,24 @@ function completeTask(index) {
     } else {
         
         taskList[index].completed = !taskList[index].completed;
+
+        user[0].hp += 5;
+    
+        if (user[0].hp % 10) {
+
+            user[0].level += 1;
+            
+        }
+
+        chrome.storage.local.set({"user": user});
+
+        chrome.notifications.create('HP bonus', {
+            type: 'basic',
+            iconUrl: './images/icon-128.png',
+            title: 'You feel yourself becoming revitalized...',
+            message: `Your HP is now ${user[0].hp} and your level is now ${user[0].level}`,
+            priority: 2
+        });
         
         storeList();
     }
