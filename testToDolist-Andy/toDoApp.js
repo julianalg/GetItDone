@@ -87,6 +87,24 @@ function displayTaskList() {
         taskButton.innerText = task.text;
         
         taskButton.addEventListener("click", () => {
+
+            if (taskElement.classname == "complete") {
+
+                return;
+
+            }
+
+            /* alarms = chrome.alarms.getAll();
+
+            for (let i = 0; i < alarms.length; i++) {
+
+                if (alarms[i] === taskButton.innerText) {
+
+                    console.log(alarms[i])
+
+                }
+
+            } */
             
             //Somehow make this code more elegant(it switches to a task detail view)
             document.querySelector('html').innerHTML = `
@@ -115,9 +133,7 @@ function displayTaskList() {
             <button class="btn btn-outline-primary addtask" id="setDueDate">Set Due Date</button>
             <input type="text" id="reminderTime"></input>
             <button class="btn btn-outline-primary addtask" id="setReminder">Remind me x minutes before</button>
-            </div>
-            
-            
+            </div>    
             
             </body>
             
