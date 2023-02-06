@@ -8,7 +8,7 @@ To install, download the repository as a zip file. Open the zip file and extract
 Go to chrome://extensions, turn on developer mode in the top right corner, and press load unpacked. Navigate to the Get It Done Master folder you unzipped, then navigate to the folder titled testToDoList Andy.
 Load the folder, and open the chrome extension.
 
-Survey Links:
+**Survey Links:**
 
 [Pre-examination](https://docs.google.com/forms/d/17lwc87p9IgJoqEKNUSTHaVNArhEnGS8XQyq85cuSw_Y)
 
