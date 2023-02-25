@@ -1,0 +1,31 @@
+nav {
+    text-align: center;
+}
+
+.cta {
+    margin: 20px;
+    text-align: center;
+}
+
+.cta img {
+    width: 60%;
+}
+
+.credits {
+    margin: 20px;
+    text-align: center;
+}
+
+.credits img {
+    width: 35%;
+    border-radius: 50px;
+}
+
+.credit {
+    display: inline-block;
+}
+
+.final-call {
+    margin: 20px;
+    text-align: center;
+}
