@@ -1,10 +1,16 @@
 console.log("Loading toDoApp.js");
 
 let taskList = [];
+
+let numberOfTasksCompleted = 0
+
 user = [{hp: 100, level: 0, character: "../characters/sprite1.png"}];
 characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
 
+
 window.addEventListener("DOMContentLoaded", function() {
+
+       
     
     chrome.storage.local.get(["taskList"], (result) => {
         
@@ -52,14 +58,25 @@ window.addEventListener("DOMContentLoaded", function() {
 //Above code to load variables from storage if possible.
 
 function displayTaskList() {
+
+    console.log(numberOfTasksCompleted)
+
+    const numOfTasks = document.getElementById("tasks-completed")
+
+    numOfTasks.innerHTML = numberOfTasksCompleted
     
     const taskListElement = document.getElementById("taskList");
     
     const completedTasksElement = document.getElementById("completedTasks");
+
+
+ 
+
     
     taskListElement.innerHTML = ""; //clear rather than append because append logic gets messy fast.
     
     completedTasksElement.innerHTML = "";
+
     
     // Below code actually starts rendering
     
@@ -68,9 +85,6 @@ function displayTaskList() {
         const task = taskList[i];
         
         const taskElement = document.createElement("li");
-        // taskElement.classList.add("tasks")
-        
-        //Marks as complete or incomplete for later
         
         if (task.completed == true) {
             
@@ -82,31 +96,30 @@ function displayTaskList() {
             
         }
         
+        console.log(task)
+        
         const taskButton = document.createElement("a");
         
         taskButton.innerText = task.text;
         
+        const taskTagButton = document.createElement("button");
+        
+        taskTagButton.innerText = task.tag;
+        
+        taskTagButton.classList.add("btn")
+        taskTagButton.classList.add(task.tag === 'Urgent' ? "btn-outline-danger" : "btn-outline-info")
+        taskTagButton.classList.add("remove-button")
+        
+        console.log(task)
+        
         taskButton.addEventListener("click", () => {
-
-            if (taskElement.classname == "complete") {
-
-                return;
-
-            }
-
-            /* alarms = chrome.alarms.getAll();
-
-            for (let i = 0; i < alarms.length; i++) {
-
-                if (alarms[i] === taskButton.innerText) {
-
-                    console.log(alarms[i])
-
-                }
-
-            } */
             
-            //Somehow make this code more elegant(it switches to a task detail view)
+            if (taskElement.classname == "complete") {
+                
+                return;
+                
+            }
+            
             document.querySelector('html').innerHTML = `
             <head>
             <meta charset="UTF-8" /> 
@@ -193,6 +206,7 @@ function displayTaskList() {
             
         });
         
+        
         const removeButton = document.createElement("button");
         
         removeButton.innerText = "X";
@@ -218,6 +232,7 @@ function displayTaskList() {
         checkbox.addEventListener("click", () => {
             
             completeTask(i); //Marks task as complete
+
             
             displayTaskList();
             
@@ -231,6 +246,9 @@ function displayTaskList() {
         taskElement.appendChild(checkbox);
         
         taskElement.appendChild(taskButton);
+        
+        taskElement.appendChild(taskTagButton);
+        
         
         taskElement.appendChild(removeButton);
         
@@ -247,15 +265,28 @@ function displayTaskList() {
     
 }
 
-function addTask(text) {
+function addTask(text, urgent) {
+    
     
     console.log("Task being added...");
+
+    console.log("buggy " + urgent.checked)
+
+    let tagValue 
+
+    if (urgent.checked) {
+        tagValue = "Urgent"
+    } else {
+        tagValue = "No Tag"
+    }
     
     taskList.push({
         
         text: text,
         
         completed: false,
+
+        tag: tagValue,
         
         addedDate: new Date()
         
@@ -278,6 +309,10 @@ function removeTask(index) {
 }
 
 function completeTask(index) {
+
+
+    numberOfTasksCompleted++ 
+
     
     //Checks if task is already completed, if so, dont do anything to avoid letting the user get hp for free
     if (taskList[index].completed) {
@@ -287,17 +322,17 @@ function completeTask(index) {
     } else {
         
         taskList[index].completed = !taskList[index].completed;
-
+        
         user[0].hp += 5;
-    
+        
         if (user[0].hp % 10) {
-
+            
             user[0].level += 1;
             
         }
-
+        
         chrome.storage.local.set({"user": user});
-
+        
         chrome.notifications.create('HP bonus', {
             type: 'basic',
             iconUrl: './images/icon-128.png',
@@ -312,6 +347,7 @@ function completeTask(index) {
 }
 
 function storeList() {
+
     
     chrome.storage.local.set({"taskList": taskList});
     
@@ -332,16 +368,24 @@ const addTaskButton = document.getElementById("addTask");
 addTaskButton.addEventListener("click", () => {
     
     const taskContent = document.getElementById("taskContent");
+
+    const isUrgentChecked = document.getElementById("accept")
+
+    console.log(isUrgentChecked.checked)
+    
+    console.log("add task button was clicked")
     
     const taskText = taskContent.value.trim(); //Remove whitespace
     
     if (taskText !== "") {
         
-        addTask(taskContent.value);
+        addTask(taskContent.value, isUrgentChecked);
         
         taskContent.value = '';
         
         displayTaskList();
+        
+        console.log()
     }
     
 });
@@ -358,7 +402,6 @@ const resumeButton = document.getElementById("Resume");
 
 function displayCountdown() {
     
-    console.log("Displaying countdown...")
     
     chrome.storage.local.get(["timeLeft"], (result) => {
         

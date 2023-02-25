@@ -5,44 +5,69 @@ html {
 }
 
 body {
-    text-align: center;
     background-color: #f0f0f0;
     font-family: "Work Sans", sans-serif;
 }
 
 /* header */
-.header {
-    display: flex;
-    color: #f0f0f0;
-    background-color: #494953;
-    padding-top: 10px;
+header {
+    color: black;
+    text-align: center;
 }
 
-.header a  {
-    margin-left: auto; 
-    height: 40px;
+header h1 {
+    margin-top: 10px;
 }
 
-.readout {
+header a {
+    color: black;
+}
+
+
+header a:hover {
+    color: darkblue;
+    text-decoration: none;
+    
+}
+
+/* game readouts */
+#character {
+    width: 100px;
+}
+
+.readouts {
+  text-align: center;
+}
+
+.readout-comp {
     display: inline-block;
+    vertical-align: middle;
+    margin: auto 15px;
+    font-size: 20px;
+}  
+
+.stat {
+    margin: 10px;
 }
 
 #hp-readout {
     color: #FF5656;
+    margin: 10px;
+
 }
 
 #level-readout {
     color: #6A7EFC;
+    margin: 10px;
+
 }
 
-.header h1 {
-    margin-left: 300px;
-}
 
 /* to do  */
-.to-do {
+ .to-do {
     width: 40%;
     float: right;
+    text-align: center;
 }
 
 .to-do a {
@@ -76,6 +101,7 @@ body {
 
 .remove-button {
     font-size: 10px;
+    margin: 3px;
 }
 
 .focus {
@@ -97,4 +123,4 @@ body {
 
 .completed-tasks {
     text-decoration: line-through;
-}
+} 

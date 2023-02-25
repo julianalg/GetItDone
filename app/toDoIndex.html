@@ -21,15 +21,25 @@
 </head>
 <body id="body">
     
-    <div class="header">
-        <h1>GetItDone</h1>     
-        <a class="btn btn-light" href="options/options.html">🔧</a>
-    </div>
+    <header>
+        <h1><a href="options/options.html" title="Preferences">GetItDone</a>
+        </h1>     
+    </header>
+    
+    
     <div class="readouts">
-        <img src="images/icon-16.png" id="character" alt="your character ">
-        <br>
-        <h3 id="hp-readout" class="readout">...</h3>
-        <h3 id="level-readout" class="readout">...</h3>
+        <div class="character readout-comp">
+            <img src="images/icon-16.png" id="character" alt="your character ">
+        </div>
+        <div class="id-info readout-comp">
+            <p id="hp-readout" class="readout">...</p>
+            <p id="level-readout" class="readout">...</p>
+        </div>
+        <div class="stats readout-comp">
+            <p class="stat-min">Minutes focused today: <span id="minutes-focused">...</span></p>
+            <p class="stat-task">Tasks completed today: <span id="tasks-completed">...</span></p>
+        </div>
+        
     </div>
     
     <!-- HP test button is now in the options menu -->    
@@ -52,6 +62,7 @@
                         <div class="col">
                             <input type="number" class="form-control input-field" id="StartingSeconds" placeholder="00" min="0" max="60">
                         </div>
+                        
                     </div>
                     
                 </div>
@@ -75,7 +86,14 @@
     <div class="container to-do">
         <form id="form">
             <input type="text" id="taskContent" class="form-control input-field" placeholder="Study for Ch. 5 Exam" autocomplete="off">
+            <label for="accept">
+                <input type="checkbox" id="accept" name="accept" value="yes"> Urgent
+            </label>
+            
             <button type="submit" class="btn btn-outline-primary addtask" id="addTask">Add Task</button>
+
+                
+            
         </form>
         
         <strong>Incomplete Tasks</strong>
