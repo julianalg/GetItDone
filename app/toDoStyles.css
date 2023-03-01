@@ -83,6 +83,18 @@ header a:hover {
     padding: 5px;
 }
 
+.pro1 {
+    color: red;
+}
+
+.pro2 {
+    color: orange;
+}
+
+.pro3 {
+    color: green;
+}
+
 /* focus  */
 .timer__button {
     margin-top: 10px;

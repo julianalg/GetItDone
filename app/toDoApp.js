@@ -107,8 +107,17 @@ function displayTaskList() {
         taskTagButton.innerText = task.tag;
         
         taskTagButton.classList.add("btn")
-        taskTagButton.classList.add(task.tag === 'Urgent' ? "btn-outline-danger" : "btn-outline-info")
         taskTagButton.classList.add("remove-button")
+
+        if (task.tag === 'High') {
+            taskTagButton.classList.add("btn-outline-danger")
+        } else if (task.tag === 'Medium') {
+            taskTagButton.classList.add("btn-outline-warning")
+        } else if (task.tag === 'Low') {
+            taskTagButton.classList.add("btn-outline-info")
+        } else {
+            taskTagButton.classList.add("btn-outline-info")
+        }
         
         console.log(task)
         
@@ -265,17 +274,21 @@ function displayTaskList() {
     
 }
 
-function addTask(text, urgent) {
+function addTask(text, urgent1, urgent2, urgent3) {
     
     
     console.log("Task being added...");
 
-    console.log("buggy " + urgent.checked)
+
 
     let tagValue 
 
-    if (urgent.checked) {
-        tagValue = "Urgent"
+    if (urgent1.checked) {
+        tagValue = "High"
+    } else if (urgent2.checked){
+        tagValue = "Medium"
+    } else if (urgent3.checked) {
+        tagValue = "Low"
     } else {
         tagValue = "No Tag"
     }
@@ -369,9 +382,16 @@ addTaskButton.addEventListener("click", () => {
     
     const taskContent = document.getElementById("taskContent");
 
-    const isUrgentChecked = document.getElementById("accept")
+    // checks for tags
 
-    console.log(isUrgentChecked.checked)
+    const priority1 = document.getElementById("pro1")
+    console.log(priority1.checked)
+
+    const priority2 = document.getElementById("pro2")
+    console.log(priority2.checked)
+
+    const priority3 = document.getElementById("pro3")
+    console.log(priority3)
     
     console.log("add task button was clicked")
     
@@ -379,7 +399,7 @@ addTaskButton.addEventListener("click", () => {
     
     if (taskText !== "") {
         
-        addTask(taskContent.value, isUrgentChecked);
+        addTask(taskContent.value, priority1, priority2, priority3);
         
         taskContent.value = '';
         
