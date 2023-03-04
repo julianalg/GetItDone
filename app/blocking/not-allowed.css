@@ -1,5 +1,5 @@
 body {
-    background-color: #801336;
+    background-color: #3C2C3E;
     text-align: center;
     color: white;
     
@@ -29,4 +29,8 @@ main {
 
 .character {
     height: 100px;
+}
+
+.button {
+    margin: 5px;
 }

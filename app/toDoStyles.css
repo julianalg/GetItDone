@@ -136,3 +136,7 @@ header a:hover {
 .completed-tasks {
     text-decoration: line-through;
 } 
+
+.Task {
+    width: 100%;
+}

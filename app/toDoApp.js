@@ -2,7 +2,6 @@ console.log("Loading toDoApp.js");
 
 let taskList = [];
 
-let numberOfTasksCompleted = 0
 
 user = [{hp: 100, level: 0, character: "../characters/sprite1.png"}];
 characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
@@ -59,20 +58,11 @@ window.addEventListener("DOMContentLoaded", function() {
 
 function displayTaskList() {
 
-    console.log(numberOfTasksCompleted)
-
-    const numOfTasks = document.getElementById("tasks-completed")
-
-    numOfTasks.innerHTML = numberOfTasksCompleted
     
     const taskListElement = document.getElementById("taskList");
     
     const completedTasksElement = document.getElementById("completedTasks");
 
-
- 
-
-    
     taskListElement.innerHTML = ""; //clear rather than append because append logic gets messy fast.
     
     completedTasksElement.innerHTML = "";
@@ -85,6 +75,7 @@ function displayTaskList() {
         const task = taskList[i];
         
         const taskElement = document.createElement("li");
+
         
         if (task.completed == true) {
             
@@ -323,8 +314,6 @@ function removeTask(index) {
 
 function completeTask(index) {
 
-
-    numberOfTasksCompleted++ 
 
     
     //Checks if task is already completed, if so, dont do anything to avoid letting the user get hp for free

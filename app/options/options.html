@@ -12,48 +12,46 @@
     </head>
     <body>
 
-        <a href="../toDoIndex.html"><button id="back" class="btn btn-outline-danger back-btn">Back</button></a>
-
-        <hr>
-
-        <h2>Blocking</h2>
         
-        <input title="toggle defaults" type="checkbox" id="toggleEl">Toggle Defaults</button>
 
-        <div class="blacklist">
-            <form id="blacklistForm">
-                <input type="text" label="blacklist" id="blacklistedURL" placeholder="twitter.com" type="url">
-                <button type="submit" class="btn btn-outline-primary addtask" id="Blacklist">Blacklist</button>
-            </form>
-    
-            <p>Blacklisted Sites</p>
-            <div id="blacklistedSites"></div>
-    
+        <div class="container">
+            <a href="../toDoIndex.html"><button id="back" class="btn btn-outline-danger back-btn">Back</button></a>
+            <hr>
+
+            <div class="diagnostics">
+                <h2>Diagnostics</h2>
+                <strong>These options reset all progress. </strong>
+                <br>
+                <button class="btn btn-danger" id="resetHP0">Reset HP to 0 & Reset Character</button>
+                <button class="btn btn-danger" id="resetHP100">Reset HP to 100 & Reset Character (user default)</button>
+            </div>
+
+            <hr>
+
+            <h2>Blocking</h2>
+            <i class="text-muted">need to disable blocking? toggle off the extension in chrome://extensions</i>
+            <br>
+            
+            <div class="blacklist">
+                <form id="blacklistForm">
+                    <input type="text" label="blacklist" id="blacklistedURL" placeholder="twitter.com" type="url">
+                    <button type="submit" class="btn btn-outline-primary addtask" id="Blacklist">Blacklist</button>
+                </form>
+                <p>Blacklisted Sites</p>
+                <div id="blacklistedSites"></div>
+            </div>
+            
+            <div class="whitelist">
+                <form id="whitelistForm">
+                    <input type="text" label="whitelist" id="whitelistedURL" placeholder="google.com" type="url">
+                    <button type="submit" class="btn btn-outline-primary addtask" id="Whitelist">Whitelist</button>
+                </form>
+                <p>Whitelisted Sites</p>
+                <div id="whitelistedSites"></div>
+            </div>
+            
+            
         </div>
-        
-        <div class="whitelist">
-            <form id="whitelistForm">
-                <input type="text" label="whitelist" id="whitelistedURL" placeholder="google.com" type="url">
-                <button type="submit" class="btn btn-outline-primary addtask" id="Whitelist">Whitelist</button>
-            </form>
-    
-    
-            <p>Whitelisted Sites</p>
-            <div id="whitelistedSites"></div>
-        </div>
-       
-        <hr>
-
-        <h2>Diagnostics</h2>
-
-        <strong>These options reset all progress. If you are testing this extension, please do not click these buttons unless instructed </strong>
-
-        <div class="diagnostics">
-            <button class="btn btn-danger" id="resetHP0">Reset HP to 0 & Reset Character</button>
-            <button class="btn btn-danger" id="resetHP100">Reset HP to 100 & Reset Character (user default)</button>
-
-        </div>
-       
 
     </body>
 
