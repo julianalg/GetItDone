@@ -440,6 +440,8 @@ function displayCountdown() {
         if (minutes == -1) {
             
             minutes = 0;
+
+            user[0].gold += 1
             
         }
         

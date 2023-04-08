@@ -25,7 +25,7 @@
             
             <div class="search">
                 <form action="" id="loginForm">
-                    <input type="text" id="username" class= "google-search form-control col-sm-10" placeholder="Search Google">
+                    <input type="text" id="username" class= "google-search form-control col-sm-10" placeholder="Search Google" autocomplete="false">
                     <button type="submit" class="search-button btn btn-primary">Search</button>
                 </form>
             </div>
@@ -101,19 +101,32 @@
                 <!-- to be filled in by js -->
             </div>
         </div>
+
+        <div class="readouts">
+            <div class="stats">
+                <div class="id-info readout-comp">
+                    <h2 id="hp-readout" class="readout">...</h2>
+                    <h2 id="level-readout" class="readout">...</h2>
+                    <h2 id="gold-readout" class="readout"></h2>
+                </div>
+            </div>
+            <br>
+            <div class="character">
+                <img src="../images/icon-16.png" id="character" alt="your character ">
+            </div>
+            
+            
+                
+                
+            </div>
+        
+        </div>
         
     </div>
 
-    <div class="readouts">
-        <div class="character readout-comp">
-            <img src="../images/icon-16.png" id="character" alt="your character ">
-        </div>
-        <div class="id-info readout-comp">
-            <h2 id="hp-readout" class="readout">...</h2>
-            <h2 id="level-readout" class="readout">...</h2>
-            <h2 id ="gold-readout" class="readout">...</h2>
-        </div>
-        
+    
+
+   
     </div>
     
     <script src="app.js"></script>
