@@ -156,7 +156,3 @@ nav {
 .quotes h3 {
     font-size: 30px;
 }
-
-if (user[0].hp < 100) {
-    user[0].hp += 2;
-}
