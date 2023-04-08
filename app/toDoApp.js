@@ -1,8 +1,10 @@
 console.log("Loading toDoApp.js");
 
-import User from 'focusGame.js'
+import User from './focusGame.js'
 
 let taskList = [];
+
+let user;
 
 window.addEventListener("DOMContentLoaded", function() {
 
@@ -23,7 +25,7 @@ window.addEventListener("DOMContentLoaded", function() {
         
     });
 
-     const user = User.loadUser()
+    user = User.loadUser();
     
 });
 
@@ -243,7 +245,7 @@ function displayTaskList() {
 
             displayTaskList();
             
-            user[0].level += 1;
+            user.level += 1;
             
             
         });
@@ -328,15 +330,15 @@ function completeTask(index) {
         
         taskList[index].completed = !taskList[index].completed;
         
-        user[0].hp += 5;
+        userhp += 5;
         
-        if (user[0].hp % 10) {
+        if (user.hp % 10) {
             
-            user[0].level += 1;
+            user.level += 1;
             
         }
         
-        chrome.storage.local.set({"user": user});
+       user.storeUser();
         
         chrome.notifications.create('HP bonus', {
             type: 'basic',
@@ -456,18 +458,13 @@ function displayChar() {
 
     const goldReadout = document.getElementById("gold-readout");
     
-    chrome.storage.local.get(["user"], (result) => {
-        
-        hpReadout.textContent = "HP: " + result.user[0].hp;
-        
-        lvlReadout.textContent = "Level: " + result.user[0].level;
-        
-        charDisplay.src = result.user[0].character;
+    user = user.loadUser();
 
-        goldReadout.textContent = "Gold: " + result.user[0].gold;
-        
-    });
-    
+    hpReadout.innerText = "HP: " + user.hp
+    lvlReadout.innerText = "Level: " + user.level
+
+    charDisplay.src = user.character
+    goldReadout.innerText = "Gold: " + user.gold
 }
 
 displayChar();
