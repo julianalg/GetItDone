@@ -327,7 +327,7 @@ function storeList() {
     
 }
 
-function storeuser() {
+function storeUser() {
 
     chrome.storage.local.set({"user": user});
 

@@ -368,3 +368,19 @@ whitelistButton.addEventListener("click", () => {
     }
     
 });
+
+const grassButton = document.getElementById("grass");
+
+grassButton.addEventListener("click", () =>{
+
+    if (confirm("Are you sure you want to touch grass?")) {
+
+        window.location.pathname = '../jokes/grass.html';
+
+    } else {
+
+        return;
+
+    }
+
+});
