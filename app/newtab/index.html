@@ -58,7 +58,10 @@
         
         <div class="container to-do">
             <form id="form">
-                <input type="text" id="taskContent" class="form-control input-field" placeholder="Study for Ch. 5 Exam" autocomplete="off">
+                <div id="addTaskField">
+                    <input type="text" id="taskContent" class="form-control input-field taskField" placeholder="Study for Ch. 5 Exam" autocomplete="off">
+                </div>
+
                 <label for="pro1" class="pro1">
                     <input type="checkbox" id="pro1" name="pro1" value="yes"> P1
                 </label>
@@ -70,7 +73,8 @@
                 </label>
                 <br>
                 
-                <button type="submit" class="btn btn-outline-primary addtask" id="addTask">Add Task</button>
+                <button type="submit" class="btn btn-primary addtask" id="addTask">Add Task</button>
+                
                 
             </form>
             

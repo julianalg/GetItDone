@@ -30,16 +30,22 @@ body {
 
 
 .to-do {
-    width: 40%;
+    width: 60%;
+    height: 300px;
     float: right;
-    text-align: center;
     border: 5px solid white;
+    color: black;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    overflow: scroll;
 }
 
 .to-do a {
     text-decoration: underline;
     margin: 10px;
 }
+
+
 
 .addtask {
     margin: 5px;
@@ -69,7 +75,7 @@ body {
 
 .timer__display {
     font-size: 20px;
-    padding: 70px 0;
+    padding: 10px 0;
     text-align: center;
 }
 
@@ -79,7 +85,8 @@ body {
 }
 
 .focus {
-    width: 60%;
+    width: 40%;
+    height: 300px;
     float: left;
     border: 5px solid white;
 }
@@ -91,10 +98,6 @@ body {
 .time-input {
     width: 200px;
     display: inline-block;
-}
-
-.time-select {
-    
 }
 
 .form-row {
