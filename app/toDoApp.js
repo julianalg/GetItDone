@@ -113,7 +113,7 @@ function displayTaskList() {
         
         console.log(task)
         
-        // Task details page
+        /* Task details page Deprecated
 
         taskButton.addEventListener("click", () => {
             
@@ -236,7 +236,7 @@ function displayTaskList() {
               
             });
              
-        });
+        }); */
 
         // Makes task remove button
         
