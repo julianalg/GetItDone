@@ -436,6 +436,8 @@ function displayChar() {
     const lvlReadout = document.getElementById("level-readout");
     
     const charDisplay = document.getElementById("character");
+
+    const goldReadout = document.getElementById("gold-readout")
     
     chrome.storage.local.get(["user"], (result) => {
         
@@ -444,6 +446,8 @@ function displayChar() {
         lvlReadout.textContent = "Level: " + result.user[0].level;
         
         charDisplay.src = result.user[0].character;
+
+        goldReadout = "Gold: " + result.user[0].character;
         
     });
     

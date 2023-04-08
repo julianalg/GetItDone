@@ -1,11 +1,8 @@
 console.log("Loading toDoApp.js");
 
+import User from 'focusGame.js'
+
 let taskList = [];
-
-
-user = [{hp: 100, level: 0, character: "../characters/sprite1.png"}];
-characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
-
 
 window.addEventListener("DOMContentLoaded", function() {
 
@@ -25,30 +22,8 @@ window.addEventListener("DOMContentLoaded", function() {
         displayTaskList();
         
     });
-    
-    chrome.storage.local.get(["user"], (result) => {
-        
-        if (result.user) {
-            
-            user = result.user;
-            
-            console.log(user);
-            
-        } else {
-            
-            const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
-            
-            character.src = randomCharacter
-            
-            user = [{hp: 100, level: 0, character: randomCharacter}];
-            
-            chrome.storage.local.set({"user": user});
-            
-            console.log(user);
-            
-        }
-        
-    });
+
+     const user = User.loadUser()
     
 });
 
@@ -300,7 +275,6 @@ function displayTaskList() {
 
 function addTask(text, urgent1, urgent2, urgent3) {
     
-    
     console.log("Task being added...");
 
     let tagValue 
@@ -479,6 +453,8 @@ function displayChar() {
     const lvlReadout = document.getElementById("level-readout");
     
     const charDisplay = document.getElementById("character");
+
+    const goldReadout = document.getElementById("gold-readout");
     
     chrome.storage.local.get(["user"], (result) => {
         
@@ -487,6 +463,8 @@ function displayChar() {
         lvlReadout.textContent = "Level: " + result.user[0].level;
         
         charDisplay.src = result.user[0].character;
+
+        goldReadout.textContent = "Gold: " + result.user[0].gold;
         
     });
     
