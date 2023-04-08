@@ -1,37 +1,35 @@
- {
+{
     "manifest_version": 3,
     "name": "GetItDone",
     "version": "1.0",
+    "description": "Stay Focused",
+    "author": "Julian Garcia, Jayden Bui, Andy Ly",
     "action": {
         "default_popup": "toDoIndex.html"
     },
-    
+    "chrome_url_overrides" : {
+      "newtab": "newtab/index.html"
+    },
+    "permissions": [
+      "storage",
+      "alarms", 
+      "notifications",
+      "declarativeNetRequest",
+      "tabs",
+      "declarativeNetRequestFeedback"
+    ],
     "icons": {
         "16": "images/icon-16.png",
         "32": "images/icon-32.png",
         "48": "images/icon-48.png",
         "128": "images/icon-128.png"
     },
-
-    "permissions": [
-    "tabs",
-    "storage", 
-    "alarms", 
-    "notifications",
-    "declarativeNetRequest",
-    "declarativeNetRequestFeedback"
-],
+    "background": {
+        "service_worker": "background.js"
+    },
     "host_permissions": [
     
         "https://*/*"
 
-    ],
-
-    "background": {
-
-        "service_worker": "background.js"
-
-    },
-
-    "options_page": "options/options.html"
+    ]
 }
