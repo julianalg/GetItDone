@@ -1,0 +1,15 @@
+body {
+    background-image: url("img/background2.png");
+    background-repeat: no-repeat;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;  
+}
+
+.main {
+    margin: 30px;
+    color: white; 
+    text-align: center;
+}
