@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded", function() {
         
         console.log(taskList)
         
-        loadTasks()
+        displayTasks()
         
     })
 })
@@ -53,9 +53,15 @@ loginForm.addEventListener("submit", (e) => {
     
 });
 
-function loadTasks() {
+function displayTasks() {
+
     const taskListElement = document.getElementById("taskList");
+
     const completedTasksElement = document.getElementById("completedTasks");
+
+    taskListElement.innerHTML = ""; //clear rather than append because append logic gets messy fast.
+    
+    completedTasksElement.innerHTML = "";
 
     for (let i = 0; i < taskList.length; i++) {
         
@@ -99,6 +105,7 @@ function loadTasks() {
         
         console.log(task)
         
+        /* task details page(deprecated)
         taskButton.addEventListener("click", () => {
             
             if (taskElement.classname == "complete") {
@@ -191,7 +198,7 @@ function loadTasks() {
                 
             });
             
-        });
+        }); */
         
         
         const removeButton = document.createElement("button");
@@ -206,7 +213,7 @@ function loadTasks() {
             
             removeTask(i);
             
-            loadTasks(); //Display task here rather than in the function because the functions should only modify taskList, not display it.
+            displayTasks(); //Display task here rather than in the function because the functions should only modify taskList, not display it.
             
         });
         
@@ -220,8 +227,7 @@ function loadTasks() {
             
             completeTask(i); //Marks task as complete
             
-            
-            loadTasks();
+            displayTasks();
             
             user[0].level += 1;
             
