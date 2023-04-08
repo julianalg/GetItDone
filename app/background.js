@@ -1,7 +1,7 @@
 console.log("Loading background.js");
 
+let user = [{hp: 100, level: 0, character: "../characters/sprite1.png", gold: 0}];
 characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
-let user;
 
 chrome.storage.local.get(["user"], (result) => {
         
@@ -19,7 +19,7 @@ chrome.storage.local.get(["user"], (result) => {
         
         const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
                     
-        user = [{hp: 100, level: 0, character: randomCharacter}];
+        user = [{hp: 100, level: 0, character: randomCharacter, gold: 0}];
         
         console.log(user);
 
@@ -74,21 +74,23 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
                 chrome.notifications.create('test', {
                     type: 'basic',
-                    iconUrl: './images/icon-128.png',
+                    iconUrl: '../images/icon-128.png',
                     title: 'Focus Mode Complete!',
                     message: 'Congratulations! You completed a Focus Mode Session!',
                     priority: 2
                 });
 
-                console.log(user)
+                console.log(user);
 
                 console.log("Timer complete")
 
-                chrome.storage.local.get(["user"], (result) => {
-                    chrome.storage.local.set({"user": [{hp: result.user[0].hp + 10, level: result.user[0].level + 1, character: result.user[0].character}]})
-                })
+                user[0].gold += 1;
 
-                console.log(user)
+                user[0].level += 1;
+
+                console.log(user);
+
+                chrome.storage.local.set({"user": user});
 
                 return;
 
@@ -171,7 +173,7 @@ chrome.storage.onChanged.addListener((changes)=> {
 
         const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
                         
-        user = [{hp: 100, level: 0, character: randomCharacter}];
+        user = [{hp: 100, level: 0, character: randomCharacter, gold: 0}];
 
         chrome.storage.local.set({"user": user});
 

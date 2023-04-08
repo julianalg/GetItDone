@@ -329,8 +329,31 @@ function storeList() {
 
 function storeUser() {
 
-    chrome.storage.local.set({"user": user});
+    chrome.storage.local.get(["user"], (result) => {
+            
+        if (result.user) {
+                
+            user = result.user;
+                
+                console.log(user);
+                
+        } else {
+                
+            const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
+            
+            character.src = randomCharacter
 
+            user = [{hp: 100, level: 0, character: randomCharacter, gold: 0}];
+            
+            chrome.storage.local.set({"user": user});
+                                
+            console.log(user);
+                
+        }
+
+        chrome.storage.local.set({"user": user});
+
+    });
 }
 
 const addTaskButton = document.getElementById("addTask"); 
