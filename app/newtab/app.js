@@ -1,5 +1,9 @@
 let taskList = [];
 
+
+user = [{hp: 100, level: 0, character: "../characters/sprite1.png"}];
+characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
+
 window.addEventListener("DOMContentLoaded", function() {
     
     chrome.storage.local.get(["taskList"], (result) => {
@@ -51,6 +55,8 @@ loginForm.addEventListener("submit", (e) => {
 
 function loadTasks() {
     const taskListElement = document.getElementById("taskList");
+    const completedTasksElement = document.getElementById("completedTasks");
+
     for (let i = 0; i < taskList.length; i++) {
         
         const task = taskList[i];
@@ -343,8 +349,6 @@ function removeTask(index) {
 
 function completeTask(index) {
     
-    
-    
     //Checks if task is already completed, if so, dont do anything to avoid letting the user get hp for free
     if (taskList[index].completed) {
         
@@ -376,3 +380,151 @@ function completeTask(index) {
     }
     
 }
+
+var startingMinutes;
+var startingSeconds;
+var time;
+
+const countdownEl = document.getElementById('countdown');
+const startButton = document.getElementById('Start');
+const stopButton = document.getElementById("Stop");
+const resetButton = document.getElementById("Reset");
+const resumeButton = document.getElementById("Resume");
+
+function displayCountdown() {
+    
+    chrome.storage.local.get(["timeLeft"], (result) => {
+        
+        const time = result.timeLeft;
+        
+        let minutes = Math.floor(time / 60);
+        
+        let seconds = time % 60;
+        
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        
+        // Ugly conditionals to make sure it doesn't display weird things.
+        
+        if (minutes == -1) {
+            
+            minutes = 0;
+            
+        }
+        
+        if (seconds == "0-1") {
+            
+            seconds = "00";
+            
+        }
+        
+        countdownEl.innerText = `${minutes}: ${seconds}`;
+        
+    });
+    
+}
+
+function displayChar() {
+    
+    const hpReadout = document.getElementById("hp-readout");
+    
+    const lvlReadout = document.getElementById("level-readout");
+    
+    const charDisplay = document.getElementById("character");
+    
+    chrome.storage.local.get(["user"], (result) => {
+        
+        hpReadout.textContent = "HP: " + result.user[0].hp;
+        
+        lvlReadout.textContent = "Level: " + result.user[0].level;
+        
+        charDisplay.src = result.user[0].character;
+        
+    });
+    
+}
+
+displayChar();
+
+setInterval(displayChar, 1000);
+
+displayCountdown();
+
+setInterval(displayCountdown, 1000);
+
+startButton.addEventListener("click", () => {
+    
+    console.log("Starting countdown...");
+    
+    // If user does not enter a number, it will default to 25 minutes
+    startingMinutes = Number(document.getElementById("StartingMinutes").value);
+    
+    startingSeconds = Number(document.getElementById("StartingSeconds").value);
+    
+    time = startingMinutes * 60 + startingSeconds;
+    
+    if (time <= 0) {
+        
+        startingMinutes = 25;
+        
+        startingSeconds = 0;
+        
+        time = startingMinutes * 60 + startingSeconds;
+        
+    }
+        
+    chrome.storage.local.set({
+        
+        timeLeft: time,
+        
+        isRunning: true,
+                
+    });
+    
+    chrome.notifications.create('test', {
+        type: 'basic',
+        iconUrl: './images/icon-128.png',
+        title: 'Focus Mode started!',
+        message: 'You feel incredibly focused...',
+        priority: 2
+    });
+    
+    
+}); 
+
+stopButton.addEventListener("click", () => {
+    
+    console.log("Stopping countdown...");
+    
+    chrome.storage.local.set({
+        
+        isRunning: false,
+        
+    });
+    
+});
+
+resetButton.addEventListener("click", () => {
+    
+    console.log("Resetting countdown...");
+        
+    chrome.storage.local.set({
+        
+        timeLeft: -1,
+        
+        isRunning: false
+        
+    });
+    
+}); 
+
+resumeButton.addEventListener("click", () => {
+    
+    console.log("Pausing Countdown...") ;
+    
+    chrome.storage.local.set({
+        
+        isRunning: true,
+        
+    });
+    
+});

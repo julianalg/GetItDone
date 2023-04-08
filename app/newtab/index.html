@@ -14,17 +14,48 @@
 </head>
 <body>
     <div class="main">
-        <h1>Hello, traveler</h1>
-
-        <div class="search">
-            <form action="" id="loginForm">
-                <input type="text" id="username" class= "google-search form-control col-sm-10" placeholder="Search Google">
-                <button type="submit" class="search-button btn btn-primary">Search</button>
-            </form>
+        <div class="header">
+            <h1>Hello, traveler</h1>
+            
+            <div class="search">
+                <form action="" id="loginForm">
+                    <input type="text" id="username" class= "google-search form-control col-sm-10" placeholder="Search Google">
+                    <button type="submit" class="search-button btn btn-primary">Search</button>
+                </form>
+            </div>
+            
         </div>
+        
+        <div class="container focus">
+            <div class="timer">
+                <div class="timer__display">
+                    <h1 id="countdown"></h1>
+                    <p class="timer__label">remaining</p>
+                </div>
                 
-      
-
+                <div class="controls">
+                    <div class="time-select">
+                        <input type="number" class="form-control time-input" id="StartingMinutes" min="0" max="60" placeholder="25" size="4">
+                        <input type="number" class="form-control time-input" id="StartingSeconds" placeholder="00" min="0" max="60">
+                        
+                    </div>
+                    
+                    
+                    
+                    <div class="timer__controls">
+                        <button type="submit" class="timer__button btn btn-success" id="Start">Start</button>
+                        <button class="timer__button btn btn-danger" id="Stop">Stop</button>
+                        <button class="timer__button btn btn-secondary" id="Reset">Reset</button>
+                        <button class="timer__button btn btn-secondary" id="Resume">Resume</button>
+                    </div>
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+        
+        
         <div class="container to-do">
             <form id="form">
                 <input type="text" id="taskContent" class="form-control input-field" placeholder="Study for Ch. 5 Exam" autocomplete="off">
@@ -40,7 +71,7 @@
                 <br>
                 
                 <button type="submit" class="btn btn-outline-primary addtask" id="addTask">Add Task</button>
-    
+                
             </form>
             
             <strong>Incomplete Tasks</strong>
@@ -55,8 +86,8 @@
         </div>
         
     </div>
-
+    
     <script src="app.js"></script>
-
+    
 </body>
 </html>
