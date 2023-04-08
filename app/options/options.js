@@ -10,13 +10,13 @@ const resetHPButton100 = document.getElementById('resetHP100')
 resetHPButton0.addEventListener("click", () => {
     console.log("reset to 0")
     chrome.storage.sync.set({"user": [{hp: 0, level: 0}]});
-    alert("Complete")
+    alert("Complete");
 })
 
 resetHPButton100.addEventListener("click", () => {
     console.log("reset to 100")
     chrome.storage.sync.set({"user": [{hp: 100, level: 0}]});
-    alert("Complete")
+    alert("Complete");
     
 })
 
