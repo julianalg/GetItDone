@@ -124,3 +124,22 @@ nav {
 .completed-tasks {
     text-decoration: line-through;
 } 
+
+.readouts { 
+    border: 5px solid white;
+}
+
+#character {
+    width: 300px;
+    padding-top: 60px;
+}
+
+.character, .stats {
+    display: inline-block;
+    text-align: center;
+}
+
+.id-info h2 {
+    display: inline-block;
+    margin:15px;
+}
