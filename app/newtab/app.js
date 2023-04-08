@@ -1,6 +1,6 @@
 let taskList = [];
 
-const user = [{hp: 100, level: 0, character: "../characters/sprite1.png", gold: 0}];
+let user = [{hp: 100, level: 0, character: "../characters/sprite1.png", gold: 0}];
 characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
 
 window.addEventListener("DOMContentLoaded", function() {
@@ -252,12 +252,6 @@ function displayTasks() {
             
             displayTasks();
             
-            user[0].level += 1;
-            
-            user[0].gold += 1;
-
-            chrome.storage.local.set({"user": user});
-            
         });
         
         taskElement.appendChild(checkbox);
@@ -331,6 +325,12 @@ function storeList() {
         
     }
     
+}
+
+function storeuser() {
+
+    chrome.storage.local.set({"user": user});
+
 }
 
 const addTaskButton = document.getElementById("addTask"); 
@@ -487,7 +487,7 @@ displayCountdown();
 
 setInterval(displayCountdown, 1000);
 
-setInterval(chrome.storage.local.set({"user": user}));
+setInterval(storeUser, 1000);
 
 startButton.addEventListener("click", () => {
     
