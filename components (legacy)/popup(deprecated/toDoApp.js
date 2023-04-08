@@ -2,8 +2,7 @@ console.log("Loading toDoApp.js");
 
 let taskList = [];
 
-
-user = [{hp: 100, level: 0, character: "../characters/sprite1.png", gold: 0}];
+let user = [{hp: 100, level: 0, character: "../characters/sprite1.png", gold: 0}];
 characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
 
 
