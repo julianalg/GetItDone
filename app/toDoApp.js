@@ -1,10 +1,11 @@
 console.log("Loading toDoApp.js");
 
-import {User} from './focusGame.js'
-
 let taskList = [];
 
-let user;
+
+user = [{hp: 100, level: 0, character: "../characters/sprite1.png", gold: 0}];
+characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
+
 
 window.addEventListener("DOMContentLoaded", function() {
 
@@ -24,8 +25,30 @@ window.addEventListener("DOMContentLoaded", function() {
         displayTaskList();
         
     });
-
-    user = User.loadUser();
+    
+    chrome.storage.local.get(["user"], (result) => {
+        
+        if (result.user) {
+            
+            user = result.user;
+            
+            console.log(user);
+            
+        } else {
+            
+            const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
+            
+            character.src = randomCharacter
+            
+            user = [{hp: 100, level: 0, character: randomCharacter, gold: 0}];
+            
+            chrome.storage.local.set({"user": user});
+            
+            console.log(user);
+            
+        }
+        
+    });
     
 });
 
@@ -245,7 +268,9 @@ function displayTaskList() {
 
             displayTaskList();
             
-            user.level += 1;
+            user[0].level += 1;
+
+            user[0].gold += 1;
             
             
         });
@@ -276,6 +301,7 @@ function displayTaskList() {
 }
 
 function addTask(text, urgent1, urgent2, urgent3) {
+    
     
     console.log("Task being added...");
 
@@ -330,15 +356,17 @@ function completeTask(index) {
         
         taskList[index].completed = !taskList[index].completed;
         
-        userhp += 5;
+        user[0].hp += 5;
+
+        user[0].gold += 1;
         
-        if (user.hp % 10) {
+        if (user[0].hp % 10) {
             
-            user.level += 1;
+            user[0].level += 1;
             
         }
         
-       user.storeUser();
+        chrome.storage.local.set({"user": user});
         
         chrome.notifications.create('HP bonus', {
             type: 'basic',
@@ -349,13 +377,14 @@ function completeTask(index) {
         });
         
         storeList();
+
+        storeUser();
     }
     
 }
 
 function storeList() {
 
-    
     chrome.storage.local.set({"taskList": taskList});
     
     const result = [];
@@ -399,7 +428,7 @@ addTaskButton.addEventListener("click", () => {
         
         displayTaskList();
         
-        console.log()
+        console.log();
     }
     
 });
@@ -458,13 +487,18 @@ function displayChar() {
 
     const goldReadout = document.getElementById("gold-readout");
     
-    user = user.loadUser();
+    chrome.storage.local.get(["user"], (result) => {
+        
+        hpReadout.textContent = "HP: " + result.user[0].hp;
+        
+        lvlReadout.textContent = "Level: " + result.user[0].level;
+        
+        charDisplay.src = result.user[0].character;
 
-    hpReadout.innerText = "HP: " + user.hp
-    lvlReadout.innerText = "Level: " + user.level
-
-    charDisplay.src = user.character
-    goldReadout.innerText = "Gold: " + user.gold
+        goldReadout.textContent = "Gold: " + result.user[0].gold;
+        
+    });
+    
 }
 
 displayChar();

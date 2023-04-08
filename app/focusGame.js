@@ -2,6 +2,8 @@ console.log("Loading focusGame.js");
 
 let user = [];
 
+const characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"]
+
 const character = document.getElementById('character');
 const hpReadout = document.getElementById('hp-readout');
 const levelReadout = document.getElementById('level-readout');
@@ -50,50 +52,11 @@ function displayHP() {
 
 }
 
-export default class User {
+function storeUser() {
 
-    characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"]
+    console.log(user[0].character)
 
-    constructor(hp, level, character, gold) {
-
-        this.hp = hp
-        this.level = level
-        this.character = character
-        this.gold = gold
-
-    }
-
-    storeUser() {
-
-        chrome.storage.sync.set({"user": [{hp: this.hp, level: this.level, character: this.character, gold: this.gold}]})
-
-    }
-
-    loadUser() {
-
-        chrome.storage.sync.get(["user"], (result) => {
-
-            if (result.user) {
-
-                this.hp = result[0].hp
-                this.level = result[0].level
-                this.character = result[0].character
-                this.gold = result[0].gold
-
-            } else {
-
-                const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
-
-                this.hp = 100
-                this.level = 0
-                this.character = randomCharacter
-                this.gold = 0
-
-            }
-
-        });
-
-    }
+    chrome.storage.local.set({"user": [{hp: user[0].hp, level: user[0].level, character: user[0].character, gold: user[0].gold}]});
 
 }
 
@@ -103,13 +66,9 @@ chrome.storage.local.set({"user": {
     hp: 0, 
     
     level: 0
-
 }});
-
 chrome.storage.local.get(["user"], (result) => {
     
     console.log(result.user.hp);
-
     hpReadout.innerHTML = "HP: " + result.user.hp;
-
 }) */
