@@ -1,7 +1,9 @@
 let taskList = [];
 
-let user = [{hp: 100, level: 0, character: "../characters/sprite1.png", gold: 0}];
+let user = [{hp: 100, level: 0, character: "../characters/sprite1.png", gold: 0, username: ""}];
 characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
+
+const header = document.getElementById("title")
 
 window.addEventListener("DOMContentLoaded", function() {
     
@@ -48,6 +50,20 @@ window.addEventListener("DOMContentLoaded", function() {
         
     });
 });
+
+
+title.addEventListener("click", () => {
+    let username = prompt("What's your name?")
+
+    console.log(username)
+
+    user[0].username = username
+
+    title.innerHTML = "Hello, " + username
+
+    storeUser()
+
+})
 
 let loginForm = document.getElementById("loginForm");
 
@@ -410,8 +426,10 @@ function completeTask(index) {
     } else {
         
         taskList[index].completed = !taskList[index].completed;
-        
-        user[0].hp += 5;
+
+        if (user[0].hp < 100) {
+            user[0].hp += 2;
+        }
 
         user[0].gold += 1;
         
@@ -499,6 +517,12 @@ function displayChar() {
         charDisplay.src = result.user[0].character;
 
         goldReadout.textContent = "Gold: " + result.user[0].gold;
+
+        if (result.user[0].username) {
+            header.textContent = "Hello, " + result.user[0].username
+        }
+
+        
         
     });
     
@@ -513,6 +537,14 @@ displayCountdown();
 setInterval(displayCountdown, 1000);
 
 setInterval(storeUser, 1000);
+
+setInterval(user[0].gold += 1, 1000);
+
+function addGold() {
+
+    user[0].gold += 1;
+
+}
 
 startButton.addEventListener("click", () => {
     

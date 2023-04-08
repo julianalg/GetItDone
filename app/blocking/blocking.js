@@ -63,7 +63,7 @@ function displayHP() {
 
 function storeUser() {
     
-    chrome.storage.local.set({"user": [{hp: user[0].hp, level: user[0].level, character: user[0].character}]});
+    chrome.storage.local.set({"user": [{hp: user[0].hp, level: user[0].level, character: user[0].character, gold: user[0].gold}]});
     
 }
 
@@ -78,20 +78,6 @@ function removeHP(hp) {
 workButton.addEventListener("click", function() {
     
     window.close();
-    
-});
-
-bypassButton.addEventListener("click", function() {
-    
-    confirm("This will subtract 20 points from your HP. Are you sure you want to proceed?");
-
-    removeHP(20);
-
-    storeUser();
-
-    displayHP();
-    
-    // i need to figure out how to get the URL that the user was attempting to go to 
     
 });
 

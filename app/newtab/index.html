@@ -10,18 +10,24 @@
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    
+    
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="main">
         <div class="header">
-            <h1>Hello, traveler</h1>
-
+            <h1 id="title">Hello, traveler</h1>
+            
             <nav> 
                 <a href="../shop/shop.html">SHOP</a>
                 <a href="../options/options.html">OPTIONS</a>
             </nav>
-           
+            
             
             <div class="search">
                 <form action="" id="loginForm">
@@ -31,10 +37,8 @@
             </div>
             
         </div>
-
-     
         
-        <div class="container focus">
+        <div class="focus">
             <div class="timer">
                 <div class="timer__display">
                     <h1 id="countdown"></h1>
@@ -64,12 +68,12 @@
         </div>
         
         
-        <div class="container to-do">
+        <div class="to-do">
             <form id="form">
                 <div class="addTaskField">
                     <input type="text" id="taskContent" class="form-control input-field taskField" placeholder="Study for Ch. 5 Exam" autocomplete="off">
                 </div>
-
+                
                 <div class="prioritySelectors">
                     <label for="pro1" class="pro1">
                         <input type="checkbox" id="pro1" name="pro1" value="yes"> P1
@@ -81,7 +85,7 @@
                         <input type="checkbox" id="pro3" name="pro3" value="yes"> P3
                     </label>
                 </div>
-
+                
                 <div class="submitTask">
                     <button type="submit" class="btn btn-primary addtask" id="addTask">Add Task</button>
                 </div>
@@ -94,14 +98,14 @@
             <div id="taskList">
                 <!-- to be filled in by js -->
             </div>
-
+            
             <strong>Completed Tasks ˅</strong>
             
             <div id="completedTasks" class="completed-tasks">
                 <!-- to be filled in by js -->
             </div>
         </div>
-
+        
         <div class="readouts">
             <div class="stats">
                 <div class="id-info readout-comp">
@@ -115,18 +119,12 @@
                 <img src="../images/icon-16.png" id="character" alt="your character ">
             </div>
             
-            
-                
-                
-            </div>
-        
         </div>
         
-    </div>
-
-    
-
-   
+        <div class="quotes">
+            <h3>“All our dreams can come true, if we have the courage to pursue them.” —Walt Disney</h3>
+        </div>
+        
     </div>
     
     <script src="app.js"></script>
