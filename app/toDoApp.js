@@ -146,7 +146,14 @@ function displayTaskList() {
             <button class="btn btn-outline-primary addtask" id="setDueDate">Set Due Date</button>
             <input type="text" id="reminderTime"></input>
             <button class="btn btn-outline-primary addtask" id="setReminder">Remind me x minutes before</button>
-            </div>    
+            </div>
+            
+            <select id="priorities" name="background" class="widget">
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+                <option value="Null">None</option>
+            </select>
             
             </body>
             
@@ -155,7 +162,7 @@ function displayTaskList() {
             //Essentially, I'm manually replacing the html, then treating it as if I switched to a different html page when I'm really on the same one.
             //This means if, in the future, we want to make this page fancier, we will have to do all the coding below, which means its really ugly, as I said above.
             //It also means if we don't call displayList() or displayCountdown() when we load toDoIndex.html, it will theoretically be a blank page.
-            
+            // Use taskButton here rather than task because reasons?
             const setDueDateButton = document.getElementById("setDueDate");
             
             setDueDateButton.addEventListener("click", () => {
@@ -203,9 +210,30 @@ function displayTaskList() {
                 })();
                 
             });
-            
+
+            document.querySelector('#priorities').addEventListener("change", function() {
+                
+                if (this.value === 'High') {
+
+                    taskTagButton.classList.add("btn-outline-danger");
+
+                } else if (this.value === 'Medium') {
+
+                    taskTagButton.classList.add("btn-outline-warning");
+
+                } else if (this.value === 'Low') {
+
+                    taskTagButton.classList.add("btn-outline-info");
+
+                } else {
+
+                    taskTagButton.classList.add("btn-outline-info");
+
+                } 
+              
+            });
+             
         });
-        
         
         const removeButton = document.createElement("button");
         
@@ -233,12 +261,9 @@ function displayTaskList() {
             
             completeTask(i); //Marks task as complete
 
-            
             displayTaskList();
             
             user[0].level += 1;
-            
-            
             
             
         });
@@ -269,8 +294,6 @@ function addTask(text, urgent1, urgent2, urgent3) {
     
     
     console.log("Task being added...");
-
-
 
     let tagValue 
 
@@ -314,8 +337,6 @@ function removeTask(index) {
 
 function completeTask(index) {
 
-
-    
     //Checks if task is already completed, if so, dont do anything to avoid letting the user get hp for free
     if (taskList[index].completed) {
         
