@@ -9,8 +9,6 @@ characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", ".
 
 window.addEventListener("DOMContentLoaded", function() {
 
-       
-    
     chrome.storage.local.get(["taskList"], (result) => {
         
         if (result.taskList) {
@@ -57,7 +55,6 @@ window.addEventListener("DOMContentLoaded", function() {
 //Above code to load variables from storage if possible.
 
 function displayTaskList() {
-
     
     const taskListElement = document.getElementById("taskList");
     
@@ -76,7 +73,7 @@ function displayTaskList() {
         
         const taskElement = document.createElement("li");
 
-        
+        // If task is completed, make sure it has the right class.
         if (task.completed == true) {
             
             taskElement.classList.add("Completed");
@@ -88,6 +85,8 @@ function displayTaskList() {
         }
         
         console.log(task)
+
+        //Create the text and button component of task element
         
         const taskButton = document.createElement("a");
         
@@ -99,6 +98,8 @@ function displayTaskList() {
         
         taskTagButton.classList.add("btn")
         taskTagButton.classList.add("remove-button")
+
+        // Make priority of task reflect what it should be
 
         if (task.tag === 'High') {
             taskTagButton.classList.add("btn-outline-danger")
@@ -112,6 +113,8 @@ function displayTaskList() {
         
         console.log(task)
         
+        // Task details page
+
         taskButton.addEventListener("click", () => {
             
             if (taskElement.classname == "complete") {
@@ -234,6 +237,8 @@ function displayTaskList() {
             });
              
         });
+
+        // Makes task remove button
         
         const removeButton = document.createElement("button");
         
@@ -247,8 +252,8 @@ function displayTaskList() {
             
             removeTask(i);
             
-            displayTaskList(); //Display task here rather than in the function because the functions should only modify taskList, not display it.
-            
+            displayTaskList(); 
+
         });
         
         const checkbox = document.createElement("input");
@@ -267,6 +272,8 @@ function displayTaskList() {
             
             
         });
+
+        // Combines all the elements into 1 task element
         
         taskElement.appendChild(checkbox);
         
@@ -274,8 +281,9 @@ function displayTaskList() {
         
         taskElement.appendChild(taskTagButton);
         
-        
         taskElement.appendChild(removeButton);
+
+        // Appends task element to correct list
         
         if (taskElement.className == "Completed") {
             
@@ -420,3 +428,160 @@ addTaskButton.addEventListener("click", () => {
     
 });
 
+var startingMinutes;
+var startingSeconds;
+var time;
+
+const countdownEl = document.getElementById('countdown');
+const startButton = document.getElementById('Start');
+const stopButton = document.getElementById("Stop");
+const resetButton = document.getElementById("Reset");
+const resumeButton = document.getElementById("Resume");
+
+function displayCountdown() {
+    
+    console.log("Displaying countdown...")
+    
+    chrome.storage.local.get(["timeLeft"], (result) => {
+        
+        const time = result.timeLeft;
+        
+        let minutes = Math.floor(time / 60);
+        
+        let seconds = time % 60;
+        
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        
+        // Ugly conditionals to make sure it doesn't display weird things.
+        
+        if (minutes == -1) {
+            
+            minutes = 0;
+            
+        }
+        
+        if (seconds == "0-1") {
+            
+            seconds = "00";
+            
+        }
+        
+        countdownEl.innerText = `${minutes}: ${seconds}`;
+        
+    });
+    
+}
+
+function displayChar() {
+    
+    const hpReadout = document.getElementById("hp-readout");
+    
+    const lvlReadout = document.getElementById("level-readout");
+    
+    const charDisplay = document.getElementById("character");
+    
+    chrome.storage.local.get(["user"], (result) => {
+        
+        hpReadout.textContent = "HP: " + result.user[0].hp;
+        
+        lvlReadout.textContent = "Level: " + result.user[0].level;
+        
+        charDisplay.src = result.user[0].character;
+        
+    });
+    
+}
+
+displayChar();
+
+setInterval(displayChar, 1000);
+
+displayCountdown();
+
+setInterval(displayCountdown, 1000);
+
+startButton.addEventListener("click", () => {
+    
+    console.log("Starting countdown...");
+    
+    // If user does not enter a number, it will default to 25 minutes
+    startingMinutes = Number(document.getElementById("StartingMinutes").value);
+    
+    startingSeconds = Number(document.getElementById("StartingSeconds").value);
+    
+    time = startingMinutes * 60 + startingSeconds;
+    
+    if (time <= 0) {
+        
+        startingMinutes = 25;
+        
+        startingSeconds = 0;
+        
+        time = startingMinutes * 60 + startingSeconds;
+        
+    }
+    
+    countdownEl.style.color = '#7DD076'
+    
+    chrome.storage.local.set({
+        
+        timeLeft: time,
+        
+        isRunning: true,
+        
+        backgroundColor: '#7DD076'
+        
+    });
+    
+    chrome.notifications.create('test', {
+        type: 'basic',
+        iconUrl: './images/icon-128.png',
+        title: 'Focus Mode started!',
+        message: 'You feel incredibly focused...',
+        priority: 2
+    });
+    
+    
+}); 
+
+stopButton.addEventListener("click", () => {
+    
+    console.log("Stopping countdown...");
+    
+    countdownEl.style.color = '#F4CB81'
+    
+    chrome.storage.local.set({
+        
+        isRunning: false,
+        
+    });
+    
+});
+
+resetButton.addEventListener("click", () => {
+    
+    console.log("Resetting countdown...");
+    
+    countdownEl.style.color = '#000000'
+    
+    chrome.storage.local.set({
+        
+        timeLeft: -1,
+        
+        isRunning: false
+        
+    });
+    
+}); 
+
+resumeButton.addEventListener("click", () => {
+    
+    console.log("Pausing Countdown...") ;
+    
+    chrome.storage.local.set({
+        
+        isRunning: true,
+        
+    });
+    
+});
