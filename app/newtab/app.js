@@ -1,7 +1,7 @@
 let taskList = [];
 
 
-user = [{hp: 100, level: 0, character: "../characters/sprite1.png"}];
+user = [{hp: 100, level: 0, character: "../characters/sprite1.png", gold: 0}];
 characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
 
 window.addEventListener("DOMContentLoaded", function() {
@@ -231,7 +231,7 @@ function displayTasks() {
             
             user[0].level += 1;
             
-            
+            user[0].gold += 1;
             
             
         });
@@ -365,6 +365,8 @@ function completeTask(index) {
         taskList[index].completed = !taskList[index].completed;
         
         user[0].hp += 5;
+
+        user[0].gold += 1;
         
         if (user[0].hp % 10) {
             
@@ -460,6 +462,8 @@ setInterval(displayChar, 1000);
 displayCountdown();
 
 setInterval(displayCountdown, 1000);
+
+setInterval(chrome.storage.local.set({"user": user}));
 
 startButton.addEventListener("click", () => {
     
