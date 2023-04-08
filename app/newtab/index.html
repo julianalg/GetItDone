@@ -15,16 +15,41 @@
 <body>
     <div class="main">
         <h1>Hello, traveler</h1>
-        
-        <ul id="taskList">
-            
-        </ul>
-        
+                
         <form action="" id="loginForm">
             <h1>Search</h1>
             <input type="text" id="username" class="form-control" placeholder="Search something">
             <button type="submit">Submit</button>
         </form>
+
+        <div class="container to-do">
+            <form id="form">
+                <input type="text" id="taskContent" class="form-control input-field" placeholder="Study for Ch. 5 Exam" autocomplete="off">
+                <label for="pro1" class="pro1">
+                    <input type="checkbox" id="pro1" name="pro1" value="yes"> P1
+                </label>
+                <label for="pro2" class="pro2">
+                    <input type="checkbox" id="pro2" name="pro2" value="yes"> P2
+                </label>
+                <label for="pro3" class="pro3">
+                    <input type="checkbox" id="pro3" name="pro3" value="yes"> P3
+                </label>
+                <br>
+                
+                <button type="submit" class="btn btn-outline-primary addtask" id="addTask">Add Task</button>
+    
+            </form>
+            
+            <strong>Incomplete Tasks</strong>
+            <div id="taskList">
+                <!-- to be filled in by js -->
+            </div>
+            
+            <strong>Completed Tasks</strong>
+            <div id="completedTasks" class="completed-tasks">
+                <!-- to be filled in by js -->
+            </div>
+        </div>
         
     </div>
 
