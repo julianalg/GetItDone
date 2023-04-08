@@ -126,12 +126,14 @@ nav {
 } 
 
 .readouts { 
-    border: 5px solid white;
+    /* border: 5px solid white; */
+    width: 70%;
+    display: inline-block;
 }
 
 #character {
     width: 300px;
-    padding-top: 60px;
+    padding-top: 30px;
 }
 
 .character, .stats {
@@ -142,4 +144,19 @@ nav {
 .id-info h2 {
     display: inline-block;
     margin:15px;
+}
+
+.quotes {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    font-family: "DM Serif Display", serif;
+}
+
+.quotes h3 {
+    font-size: 30px;
+}
+
+if (user[0].hp < 100) {
+    user[0].hp += 2;
 }
