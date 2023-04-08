@@ -447,7 +447,7 @@ function displayChar() {
         
         charDisplay.src = result.user[0].character;
 
-        goldReadout = "Gold: " + result.user[0].character;
+        goldReadout.textContent = "Gold: " + result.user[0].gold;
         
     });
     

@@ -1,6 +1,6 @@
 console.log("Loading toDoApp.js");
 
-import User from './focusGame.js'
+import {User} from './focusGame.js'
 
 let taskList = [];
 

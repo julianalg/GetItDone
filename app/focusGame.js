@@ -50,7 +50,7 @@ function displayHP() {
 
 }
 
-export class User {
+export default class User {
 
     characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"]
 
