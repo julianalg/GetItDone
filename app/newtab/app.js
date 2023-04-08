@@ -94,13 +94,13 @@ function displayTasks() {
         taskTagButton.classList.add("remove-button")
         
         if (task.tag === 'High') {
-            taskTagButton.classList.add("btn-outline-danger")
+            taskTagButton.classList.add("btn-danger")
         } else if (task.tag === 'Medium') {
-            taskTagButton.classList.add("btn-outline-warning")
+            taskTagButton.classList.add("btn-warning")
         } else if (task.tag === 'Low') {
-            taskTagButton.classList.add("btn-outline-info")
+            taskTagButton.classList.add("btn-success")
         } else {
-            taskTagButton.classList.add("btn-outline-info")
+            taskTagButton.classList.add("btn-info")
         }
         
         console.log(task)
