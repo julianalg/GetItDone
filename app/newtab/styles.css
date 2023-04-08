@@ -8,6 +8,10 @@ body {
     color: white;  
 }
 
+nav {
+    font-size: 30px;
+}
+
 .main {
     color: white; 
     margin: 30px 30px;
@@ -30,6 +34,7 @@ body {
 
 
 .to-do {
+    padding-top: 10px;
     width: 60%;
     height: 300px;
     float: right;
@@ -45,7 +50,14 @@ body {
     margin: 10px;
 }
 
+.taskField {
+    width: 100%
+}
 
+.addTaskField, .prioritySelectors, .submitTask {
+    display: inline-block;
+    width: auto;
+}
 
 .addtask {
     margin: 5px;
