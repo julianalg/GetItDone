@@ -13,3 +13,24 @@ body {
     color: white; 
     text-align: center;
 }
+
+.google-search {
+    margin: auto auto;
+    width: 30%;
+    display: inline-block;
+
+}
+
+.search-button {
+    display: inline-block;
+}
+
+.container {
+    margin: 30px;
+}
+
+.to-do {
+    width: 40%;
+    float: right;
+    text-align: center;
+}
