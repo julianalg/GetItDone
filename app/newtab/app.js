@@ -538,14 +538,6 @@ setInterval(displayCountdown, 1000);
 
 setInterval(storeUser, 1000);
 
-setInterval(user[0].gold += 1, 1000);
-
-function addGold() {
-
-    user[0].gold += 1;
-
-}
-
 startButton.addEventListener("click", () => {
     
     console.log("Starting countdown...");
