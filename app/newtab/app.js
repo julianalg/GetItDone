@@ -1,7 +1,6 @@
 let taskList = [];
 
-
-user = [{hp: 100, level: 0, character: "../characters/sprite1.png", gold: 0}];
+const user = [{hp: 100, level: 0, character: "../characters/sprite1.png", gold: 0}];
 characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
 
 window.addEventListener("DOMContentLoaded", function() {
@@ -23,8 +22,32 @@ window.addEventListener("DOMContentLoaded", function() {
         
         displayTasks()
         
-    })
-})
+    });
+
+    chrome.storage.local.get(["user"], (result) => {
+        
+        if (result.user) {
+            
+            user = result.user;
+            
+            console.log(user);
+            
+        } else {
+            
+            const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
+            
+            character.src = randomCharacter
+            
+            user = [{hp: 100, level: 0, character: randomCharacter, gold: 0}];
+            
+            chrome.storage.local.set({"user": user});
+            
+            console.log(user);
+            
+        }
+        
+    });
+});
 
 let loginForm = document.getElementById("loginForm");
 
@@ -232,7 +255,8 @@ function displayTasks() {
             user[0].level += 1;
             
             user[0].gold += 1;
-            
+
+            chrome.storage.local.set({"user": user});
             
         });
         
@@ -334,7 +358,7 @@ addTaskButton.addEventListener("click", () => {
         
         taskContent.value = '';
         
-        loadTasks();
+        displayTasks();
         
         console.log()
     }
