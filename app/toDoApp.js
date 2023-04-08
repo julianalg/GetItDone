@@ -117,7 +117,7 @@ function displayTaskList() {
 
         taskButton.addEventListener("click", () => {
             
-            if (taskElement.classname == "complete") {
+            if (taskElement.classname == "Completed") {
                 
                 return;
                 
