@@ -16,7 +16,9 @@
       "notifications",
       "declarativeNetRequest",
       "tabs",
-      "declarativeNetRequestFeedback"
+      "declarativeNetRequestFeedback",
+      "management",
+      "nativeMessaging"
     ],
     "icons": {
         "16": "images/icon-16.png",
