@@ -1,7 +1,19 @@
 let taskList = [];
 
 let user = [{hp: 100, level: 0, character: "../characters/sprite1.png", gold: 0, username: ""}];
-characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
+
+const characterSprites = ["../characters/sprite1.png", "../characters/sprite2.png", "../characters/sprite3.png", "../characters/sprite4.png", "../characters/sprite5.png"];
+
+const quotes = [`“Be yourself; everyone else is already taken.” - Oscar Wilde`, `“Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.” ― Albert Einstein`, `“Be the change that you wish to see in the world.” ― Mahatma Gandhi`, `“If you tell the truth, you don't have to remember anything.” ― Mark Twain`, `“Only the paranoid survive.” —Andy Grove`, `“It’s hard to beat a person who never gives up.” —Babe Ruth`, `“Do what you feel in your heart to be right―for you’ll be criticized anyway.” ―Eleanor Roosevelt`, `“Whatever you are, be a good one.” ―Abraham Lincoln`]
+
+const quoteBox = document.getElementById('quotes')
+
+const randomQuote = quotes[Math.floor(Math.random() * quotes.length)]
+
+console.log(randomQuote)
+
+quoteBox.innerHTML = randomQuote
+
 
 const header = document.getElementById("title")
 
@@ -25,7 +37,7 @@ window.addEventListener("DOMContentLoaded", function() {
         displayTasks()
         
     });
-
+    
     chrome.storage.local.get(["user"], (result) => {
         
         if (result.user) {
@@ -49,20 +61,24 @@ window.addEventListener("DOMContentLoaded", function() {
         }
         
     });
+    
+    
+    
+    
 });
 
 
 title.addEventListener("click", () => {
     let username = prompt("What's your name?")
-
+    
     console.log(username)
-
+    
     user[0].username = username
-
+    
     title.innerHTML = "Hello, " + username
-
+    
     storeUser()
-
+    
 })
 
 let loginForm = document.getElementById("loginForm");
@@ -93,15 +109,15 @@ loginForm.addEventListener("submit", (e) => {
 });
 
 function displayTasks() {
-
+    
     const taskListElement = document.getElementById("taskList");
-
+    
     const completedTasksElement = document.getElementById("completedTasks");
-
+    
     taskListElement.innerHTML = ""; //clear rather than append because append logic gets messy fast.
     
     completedTasksElement.innerHTML = "";
-
+    
     for (let i = 0; i < taskList.length; i++) {
         
         const task = taskList[i];
@@ -344,31 +360,31 @@ function storeList() {
 }
 
 function storeUser() {
-
+    
     chrome.storage.local.get(["user"], (result) => {
-            
+        
         if (result.user) {
-                
+            
             user = result.user;
-                
-                console.log(user);
-                
+            
+            console.log(user);
+            
         } else {
-                
+            
             const randomCharacter = characterSprites[Math.floor(Math.random() * characterSprites.length)];
             
             character.src = randomCharacter
-
-            user = [{hp: 100, level: 0, character: randomCharacter, gold: 0}];
+            
+            user = [{hp: 100, level: 0, character: randomCharacter, gold: 0, username: ""}];
             
             chrome.storage.local.set({"user": user});
-                                
+            
             console.log(user);
-                
+            
         }
-
+        
         chrome.storage.local.set({"user": user});
-
+        
     });
 }
 
@@ -377,7 +393,7 @@ const addTaskButton = document.getElementById("addTask");
 addTaskButton.addEventListener("click", () => {
     
     const taskContent = document.getElementById("taskContent");
-        
+    
     const priority1 = document.getElementById("pro1")
     console.log(priority1.checked)
     
@@ -426,14 +442,14 @@ function completeTask(index) {
     } else {
         
         taskList[index].completed = !taskList[index].completed;
-
+        
         if (user[0].hp < 100) {
             user[0].hp += 2;
         }
-
+        
         user[0].gold += 1;
         
-        if (user[0].hp % 10) {
+        if (taskList.length % 10 === 0) {
             
             user[0].level += 1;
             
@@ -481,7 +497,7 @@ function displayCountdown() {
         if (minutes == -1) {
             
             minutes = 0;
-
+            
             user[0].gold += 1
             
         }
@@ -505,7 +521,7 @@ function displayChar() {
     const lvlReadout = document.getElementById("level-readout");
     
     const charDisplay = document.getElementById("character");
-
+    
     const goldReadout = document.getElementById("gold-readout")
     
     chrome.storage.local.get(["user"], (result) => {
@@ -515,13 +531,13 @@ function displayChar() {
         lvlReadout.textContent = "Level: " + result.user[0].level;
         
         charDisplay.src = result.user[0].character;
-
+        
         goldReadout.textContent = "Gold: " + result.user[0].gold;
-
+        
         if (result.user[0].username) {
             header.textContent = "Hello, " + result.user[0].username
         }
-
+        
         
         
     });
@@ -538,6 +554,10 @@ setInterval(displayCountdown, 1000);
 
 setInterval(storeUser, 1000);
 
+function minuteAddGold() {
+    user[0].gold += 1
+}
+
 startButton.addEventListener("click", () => {
     
     console.log("Starting countdown...");
@@ -549,7 +569,10 @@ startButton.addEventListener("click", () => {
     
     time = startingMinutes * 60 + startingSeconds;
     
+    
     if (time <= 0) {
+        
+        user[0].gold + startingMinutes + 1
         
         startingMinutes = 25;
         
@@ -557,14 +580,16 @@ startButton.addEventListener("click", () => {
         
         time = startingMinutes * 60 + startingSeconds;
         
-    }
         
+        
+    }
+    
     chrome.storage.local.set({
         
         timeLeft: time,
         
         isRunning: true,
-                
+        
     });
     
     chrome.notifications.create('test', {
@@ -593,7 +618,7 @@ stopButton.addEventListener("click", () => {
 resetButton.addEventListener("click", () => {
     
     console.log("Resetting countdown...");
-        
+    
     chrome.storage.local.set({
         
         timeLeft: -1,
