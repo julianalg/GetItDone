@@ -20,6 +20,9 @@
       "management",
       "nativeMessaging"
     ],
+
+    "uninstallURL": "https://julianagar.github.io/GetItDone/pages/remove.html",
+
     "icons": {
         "16": "images/icon-16.png",
         "32": "images/icon-32.png",

@@ -180,8 +180,10 @@ chrome.storage.onChanged.addListener((changes)=> {
    }
 
 chrome.management.onUninstalled.addListener( () => {
-    window.location.pathname = "../removed.html";
+    window.location.replace("https://julianagar.github.io/GetItDone/pages/remove.html");
 });
+
+chrome.runtime.setuninstallURL("https://julianagar.github.io/GetItDone/pages/remove.html");
 
 //    if (changes.user && changes.user.newValue[0].level % 2 == 0 && changes.user.newValue[0].level != 0) {
 
