@@ -35,7 +35,8 @@ nav {
 
 .to-do {
     padding-top: 10px;
-    width: 60%;
+    width: 50%;
+    margin-right: 60px;
     height: 300px;
     float: right;
     border: 5px solid white;
@@ -97,6 +98,7 @@ nav {
 }
 
 .focus {
+    margin-left : 60px;
     width: 40%;
     height: 300px;
     float: left;

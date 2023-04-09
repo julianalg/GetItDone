@@ -4,9 +4,6 @@
     "version": "1.0",
     "description": "Stay Focused",
     "author": "Julian Garcia, Jayden Bui, Andy Ly",
-    "action": {
-        "default_popup": "toDoIndex.html"
-    },
     "chrome_url_overrides" : {
       "newtab": "newtab/index.html"
     },
